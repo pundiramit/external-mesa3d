@@ -28,6 +28,7 @@ LOCAL_MODULE_CLASS := STATIC_LIBRARIES
 endif
 
 intermediates := $(call local-generated-sources-dir)
+prebuilt_intermediates := $(MESA_TOP)/prebuilt-intermediates
 
 LOCAL_SRC_FILES := $(LOCAL_SRC_FILES)
 
@@ -56,45 +57,40 @@ nir_builder_opcodes_deps := \
 	$(LOCAL_PATH)/nir/nir_intrinsics.py \
 	$(LOCAL_PATH)/nir/nir_builder_opcodes_h.py
 
-$(intermediates)/nir/nir_builder_opcodes.h: $(nir_builder_opcodes_deps)
-	@mkdir -p $(dir $@)
-	$(hide) $(MESA_PYTHON2) $(nir_builder_opcodes_gen) $< > $@
+$(intermediates)/nir/nir_builder_opcodes.h: $(prebuilt_intermediates)/nir/nir_builder_opcodes.h
+	cp -a $< $@
 
 nir_constant_expressions_gen := $(LOCAL_PATH)/nir/nir_constant_expressions.py
 nir_constant_expressions_deps := \
 	$(LOCAL_PATH)/nir/nir_opcodes.py \
 	$(LOCAL_PATH)/nir/nir_constant_expressions.py
 
-$(intermediates)/nir/nir_constant_expressions.c: $(nir_constant_expressions_deps)
-	@mkdir -p $(dir $@)
-	$(hide) $(MESA_PYTHON2) $(nir_constant_expressions_gen) $< > $@
+$(intermediates)/nir/nir_constant_expressions.c: $(prebuilt_intermediates)/nir/nir_constant_expressions.c
+	cp -a $< $@
 
 nir_opcodes_h_gen := $(LOCAL_PATH)/nir/nir_opcodes_h.py
 nir_opcodes_h_deps := \
 	$(LOCAL_PATH)/nir/nir_opcodes.py \
 	$(LOCAL_PATH)/nir/nir_opcodes_h.py
 
-$(intermediates)/nir/nir_opcodes.h: $(nir_opcodes_h_deps)
-	@mkdir -p $(dir $@)
-	$(hide) $(MESA_PYTHON2) $(nir_opcodes_h_gen) $< > $@
+$(intermediates)/nir/nir_opcodes.h: $(prebuilt_intermediates)/nir/nir_opcodes.h
+	cp -a $< $@
 
 nir_opcodes_c_gen := $(LOCAL_PATH)/nir/nir_opcodes_c.py
 nir_opcodes_c_deps := \
 	$(LOCAL_PATH)/nir/nir_opcodes.py \
 	$(LOCAL_PATH)/nir/nir_opcodes_c.py
 
-$(intermediates)/nir/nir_opcodes.c: $(nir_opcodes_c_deps)
-	@mkdir -p $(dir $@)
-	$(hide) $(MESA_PYTHON2) $(nir_opcodes_c_gen) $< > $@
+$(intermediates)/nir/nir_opcodes.c: $(prebuilt_intermediates)/nir/nir_opcodes.c
+	cp -a $< $@
 
 nir_opt_algebraic_gen := $(LOCAL_PATH)/nir/nir_opt_algebraic.py
 nir_opt_algebraic_deps := \
 	$(LOCAL_PATH)/nir/nir_opt_algebraic.py \
 	$(LOCAL_PATH)/nir/nir_algebraic.py
 
-$(intermediates)/nir/nir_opt_algebraic.c: $(nir_opt_algebraic_deps)
-	@mkdir -p $(dir $@)
-	$(hide) $(MESA_PYTHON2) $(nir_opt_algebraic_gen) $< > $@
+$(intermediates)/nir/nir_opt_algebraic.c: $(prebuilt_intermediates)/nir/nir_opt_algebraic.c
+	cp -a $< $@
 
 $(intermediates)/spirv/spirv_info.c: $(LOCAL_PATH)/spirv/spirv_info_c.py $(LOCAL_PATH)/spirv/spirv.core.grammar.json
 	@mkdir -p $(dir $@)
