@@ -86,5 +86,12 @@ $(intermediates)/format/u_format_table.c: $(u_format_deps)
 	@mkdir -p $(dir $@)
 	$(hide) $(MESA_PYTHON2) $(u_format_gen) $< > $@
 
+$(intermediates)/format_srgb.c: $(prebuilt_intermediates)/util/format_srgb.c
+	@mkdir -p $(dir $@)
+	@cp -f $< $@
+
+MESA_FORMAT_SRGB_C := $(intermediates)/format_srgb.c
+LOCAL_GENERATED_SOURCES := $(MESA_FORMAT_SRGB_C)
+
 include $(MESA_COMMON_MK)
 include $(BUILD_STATIC_LIBRARY)
