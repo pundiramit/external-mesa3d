@@ -38,6 +38,7 @@
 
 #include <stdint.h>
 
+#include "errors.h"
 #include "format_unpack.h"
 #include "format_utils.h"
 #include "macros.h"
@@ -400,6 +401,27 @@ unpack_float_a1b5g5r5_unorm(const void *void_src, GLfloat dst[4])
       
          
                dst[3] = _mesa_unorm_to_float(a, 1);
+}
+
+static inline void
+unpack_float_x1b5g5r5_unorm(const void *void_src, GLfloat dst[4])
+{
+   uint16_t *src = (uint16_t *)void_src;
+            uint8_t b = UNPACK(*src, 1, 5);
+            uint8_t g = UNPACK(*src, 6, 5);
+            uint8_t r = UNPACK(*src, 11, 5);
+
+      
+         
+               dst[0] = _mesa_unorm_to_float(r, 5);
+      
+         
+               dst[1] = _mesa_unorm_to_float(g, 5);
+      
+         
+               dst[2] = _mesa_unorm_to_float(b, 5);
+      
+         dst[3] = 1.0f;
 }
 
 static inline void
@@ -1766,6 +1788,24 @@ unpack_float_a8l8_srgb(const void *void_src, GLfloat dst[4])
 }
 
 static inline void
+unpack_float_r_srgb8(const void *void_src, GLfloat dst[4])
+{
+   uint8_t *src = (uint8_t *)void_src;
+            uint8_t r = src[0];
+
+      
+         
+               
+               dst[0] = util_format_srgb_8unorm_to_linear_float(r);
+      
+         dst[1] = 0.0f;
+      
+         dst[2] = 0.0f;
+      
+         dst[3] = 1.0f;
+}
+
+static inline void
 unpack_float_l_srgb8(const void *void_src, GLfloat dst[4])
 {
    uint8_t *src = (uint8_t *)void_src;
@@ -2579,6 +2619,27 @@ unpack_ubyte_a1b5g5r5_unorm(const void *void_src, GLubyte dst[4])
       
          
                dst[3] = _mesa_unorm_to_unorm(a, 1, 8);
+}
+
+static inline void
+unpack_ubyte_x1b5g5r5_unorm(const void *void_src, GLubyte dst[4])
+{
+   uint16_t *src = (uint16_t *)void_src;
+            uint8_t b = UNPACK(*src, 1, 5);
+            uint8_t g = UNPACK(*src, 6, 5);
+            uint8_t r = UNPACK(*src, 11, 5);
+
+      
+         
+               dst[0] = _mesa_unorm_to_unorm(r, 5, 8);
+      
+         
+               dst[1] = _mesa_unorm_to_unorm(g, 5, 8);
+      
+         
+               dst[2] = _mesa_unorm_to_unorm(b, 5, 8);
+      
+         dst[3] = 255;
 }
 
 static inline void
@@ -3945,6 +4006,24 @@ unpack_ubyte_a8l8_srgb(const void *void_src, GLubyte dst[4])
 }
 
 static inline void
+unpack_ubyte_r_srgb8(const void *void_src, GLubyte dst[4])
+{
+   uint8_t *src = (uint8_t *)void_src;
+            uint8_t r = src[0];
+
+      
+         
+               
+               dst[0] = util_format_srgb_to_linear_8unorm(r);
+      
+         dst[1] = 0;
+      
+         dst[2] = 0;
+      
+         dst[3] = 255;
+}
+
+static inline void
 unpack_ubyte_l_srgb8(const void *void_src, GLubyte dst[4])
 {
    uint8_t *src = (uint8_t *)void_src;
@@ -3989,7 +4068,7 @@ unpack_ubyte_bgr_srgb8(const void *void_src, GLubyte dst[4])
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
 /* integer packing functions */
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
 static inline void
 unpack_int_a8b8g8r8_uint(const void *void_src, GLuint dst[4])
 {
@@ -5389,6 +5468,12 @@ _mesa_unpack_rgba_row(mesa_format format, GLuint n,
          s += 2;
       }
       break;
+   case MESA_FORMAT_X1B5G5R5_UNORM:
+      for (i = 0; i < n; ++i) {
+         unpack_float_x1b5g5r5_unorm(s, dst[i]);
+         s += 2;
+      }
+      break;
    case MESA_FORMAT_B5G5R5A1_UNORM:
       for (i = 0; i < n; ++i) {
          unpack_float_b5g5r5a1_unorm(s, dst[i]);
@@ -5779,6 +5864,12 @@ _mesa_unpack_rgba_row(mesa_format format, GLuint n,
          s += 2;
       }
       break;
+   case MESA_FORMAT_R_SRGB8:
+      for (i = 0; i < n; ++i) {
+         unpack_float_r_srgb8(s, dst[i]);
+         s += 1;
+      }
+      break;
    case MESA_FORMAT_L_SRGB8:
       for (i = 0; i < n; ++i) {
          unpack_float_l_srgb8(s, dst[i]);
@@ -6041,6 +6132,13 @@ _mesa_unpack_ubyte_rgba_row(mesa_format format, GLuint n,
    case MESA_FORMAT_A1B5G5R5_UNORM:
       for (i = 0; i < n; ++i) {
          unpack_ubyte_a1b5g5r5_unorm(s, dst[i]);
+         s += 2;
+      }
+      break;
+
+   case MESA_FORMAT_X1B5G5R5_UNORM:
+      for (i = 0; i < n; ++i) {
+         unpack_ubyte_x1b5g5r5_unorm(s, dst[i]);
          s += 2;
       }
       break;
@@ -6500,6 +6598,13 @@ _mesa_unpack_ubyte_rgba_row(mesa_format format, GLuint n,
       }
       break;
 
+   case MESA_FORMAT_R_SRGB8:
+      for (i = 0; i < n; ++i) {
+         unpack_ubyte_r_srgb8(s, dst[i]);
+         s += 1;
+      }
+      break;
+
    case MESA_FORMAT_L_SRGB8:
       for (i = 0; i < n; ++i) {
          unpack_ubyte_l_srgb8(s, dst[i]);
@@ -6541,7 +6646,7 @@ _mesa_unpack_uint_rgba_row(mesa_format format, GLuint n,
    GLuint i;
 
    switch (format) {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
    case MESA_FORMAT_A8B8G8R8_UINT:
       for (i = 0; i < n; ++i) {
          unpack_int_a8b8g8r8_uint(s, dst[i]);
