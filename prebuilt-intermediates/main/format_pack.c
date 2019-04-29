@@ -38,6 +38,8 @@
 
 #include <stdint.h>
 
+#include "config.h"
+#include "errors.h"
 #include "format_pack.h"
 #include "format_utils.h"
 #include "macros.h"
@@ -446,6 +448,30 @@ pack_ubyte_a1b5g5r5_unorm(const GLubyte src[4], void *dst)
       uint16_t d = 0;
          d |= PACK(a, 0, 1);
          d |= PACK(b, 1, 5);
+         d |= PACK(g, 6, 5);
+         d |= PACK(r, 11, 5);
+      (*(uint16_t *)dst) = d;
+}
+
+static inline void
+pack_ubyte_x1b5g5r5_unorm(const GLubyte src[4], void *dst)
+{
+      
+               
+
+      uint8_t b =
+            _mesa_unorm_to_unorm(src[2], 8, 5);
+      
+
+      uint8_t g =
+            _mesa_unorm_to_unorm(src[1], 8, 5);
+      
+
+      uint8_t r =
+            _mesa_unorm_to_unorm(src[0], 8, 5);
+
+      uint16_t d = 0;
+                     d |= PACK(b, 1, 5);
          d |= PACK(g, 6, 5);
          d |= PACK(r, 11, 5);
       (*(uint16_t *)dst) = d;
@@ -1800,6 +1826,19 @@ pack_ubyte_a8l8_srgb(const GLubyte src[4], void *dst)
          d |= PACK(a, 0, 8);
          d |= PACK(l, 8, 8);
       (*(uint16_t *)dst) = d;
+}
+
+static inline void
+pack_ubyte_r_srgb8(const GLubyte src[4], void *dst)
+{
+      
+
+      uint8_t r =
+            
+            util_format_linear_to_srgb_8unorm(src[0]);
+
+      uint8_t *d = (uint8_t *)dst;
+         d[0] = r;
 }
 
 static inline void
@@ -3635,7 +3674,7 @@ pack_ubyte_r11g11b10_float(const GLubyte src[4], void *dst)
 
 /* uint packing functions */
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
 static inline void
 pack_uint_a8b8g8r8_uint(const GLuint src[4], void *dst)
 {
@@ -5502,6 +5541,30 @@ pack_float_a1b5g5r5_unorm(const GLfloat src[4], void *dst)
 }
 
 static inline void
+pack_float_x1b5g5r5_unorm(const GLfloat src[4], void *dst)
+{
+      
+               
+
+      uint8_t b =
+            _mesa_float_to_unorm(src[2], 5);
+      
+
+      uint8_t g =
+            _mesa_float_to_unorm(src[1], 5);
+      
+
+      uint8_t r =
+            _mesa_float_to_unorm(src[0], 5);
+
+      uint16_t d = 0;
+                     d |= PACK(b, 1, 5);
+         d |= PACK(g, 6, 5);
+         d |= PACK(r, 11, 5);
+      (*(uint16_t *)dst) = d;
+}
+
+static inline void
 pack_float_b5g5r5a1_unorm(const GLfloat src[4], void *dst)
 {
       
@@ -6853,6 +6916,19 @@ pack_float_a8l8_srgb(const GLfloat src[4], void *dst)
 }
 
 static inline void
+pack_float_r_srgb8(const GLfloat src[4], void *dst)
+{
+      
+
+      uint8_t r =
+            
+            util_format_linear_float_to_srgb_8unorm(src[0]);
+
+      uint8_t *d = (uint8_t *)dst;
+         d[0] = r;
+}
+
+static inline void
 pack_float_l_srgb8(const GLfloat src[4], void *dst)
 {
       
@@ -7267,6 +7343,9 @@ _mesa_get_pack_ubyte_rgba_function(mesa_format format)
    case MESA_FORMAT_A1B5G5R5_UNORM:
       return pack_ubyte_a1b5g5r5_unorm;
 
+   case MESA_FORMAT_X1B5G5R5_UNORM:
+      return pack_ubyte_x1b5g5r5_unorm;
+
    case MESA_FORMAT_B5G5R5A1_UNORM:
       return pack_ubyte_b5g5r5a1_unorm;
 
@@ -7461,6 +7540,9 @@ _mesa_get_pack_ubyte_rgba_function(mesa_format format)
 
    case MESA_FORMAT_A8L8_SRGB:
       return pack_ubyte_a8l8_srgb;
+
+   case MESA_FORMAT_R_SRGB8:
+      return pack_ubyte_r_srgb8;
 
    case MESA_FORMAT_L_SRGB8:
       return pack_ubyte_l_srgb8;
@@ -7810,6 +7892,9 @@ _mesa_get_pack_float_rgba_function(mesa_format format)
    case MESA_FORMAT_A1B5G5R5_UNORM:
       return pack_float_a1b5g5r5_unorm;
 
+   case MESA_FORMAT_X1B5G5R5_UNORM:
+      return pack_float_x1b5g5r5_unorm;
+
    case MESA_FORMAT_B5G5R5A1_UNORM:
       return pack_float_b5g5r5a1_unorm;
 
@@ -8005,6 +8090,9 @@ _mesa_get_pack_float_rgba_function(mesa_format format)
    case MESA_FORMAT_A8L8_SRGB:
       return pack_float_a8l8_srgb;
 
+   case MESA_FORMAT_R_SRGB8:
+      return pack_float_r_srgb8;
+
    case MESA_FORMAT_L_SRGB8:
       return pack_float_l_srgb8;
 
@@ -8195,6 +8283,13 @@ _mesa_pack_ubyte_rgba_row(mesa_format format, GLuint n,
    case MESA_FORMAT_A1B5G5R5_UNORM:
       for (i = 0; i < n; ++i) {
          pack_ubyte_a1b5g5r5_unorm(src[i], d);
+         d += 2;
+      }
+      break;
+
+   case MESA_FORMAT_X1B5G5R5_UNORM:
+      for (i = 0; i < n; ++i) {
+         pack_ubyte_x1b5g5r5_unorm(src[i], d);
          d += 2;
       }
       break;
@@ -8651,6 +8746,13 @@ _mesa_pack_ubyte_rgba_row(mesa_format format, GLuint n,
       for (i = 0; i < n; ++i) {
          pack_ubyte_a8l8_srgb(src[i], d);
          d += 2;
+      }
+      break;
+
+   case MESA_FORMAT_R_SRGB8:
+      for (i = 0; i < n; ++i) {
+         pack_ubyte_r_srgb8(src[i], d);
+         d += 1;
       }
       break;
 
@@ -9341,7 +9443,7 @@ _mesa_pack_uint_rgba_row(mesa_format format, GLuint n,
    GLubyte *d = dst;
 
    switch (format) {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
    case MESA_FORMAT_A8B8G8R8_UINT:
       for (i = 0; i < n; ++i) {
          pack_uint_a8b8g8r8_uint(src[i], d);
@@ -9988,6 +10090,13 @@ _mesa_pack_float_rgba_row(mesa_format format, GLuint n,
       }
       break;
 
+   case MESA_FORMAT_X1B5G5R5_UNORM:
+      for (i = 0; i < n; ++i) {
+         pack_float_x1b5g5r5_unorm(src[i], d);
+         d += 2;
+      }
+      break;
+
    case MESA_FORMAT_B5G5R5A1_UNORM:
       for (i = 0; i < n; ++i) {
          pack_float_b5g5r5a1_unorm(src[i], d);
@@ -10443,6 +10552,13 @@ _mesa_pack_float_rgba_row(mesa_format format, GLuint n,
       }
       break;
 
+   case MESA_FORMAT_R_SRGB8:
+      for (i = 0; i < n; ++i) {
+         pack_float_r_srgb8(src[i], d);
+         d += 1;
+      }
+      break;
+
    case MESA_FORMAT_L_SRGB8:
       for (i = 0; i < n; ++i) {
          pack_float_l_srgb8(src[i], d);
@@ -10684,6 +10800,10 @@ pack_float_Z_UNORM32(const GLfloat *src, void *dst)
    *d = (GLuint) (*src * scale);
 }
 
+/**
+ ** Pack float to Z_FLOAT32 or Z_FLOAT32_X24S8.
+ **/
+
 static void
 pack_float_Z_FLOAT32(const GLfloat *src, void *dst)
 {
@@ -10756,18 +10876,12 @@ pack_uint_Z_UNORM32(const GLuint *src, void *dst)
    *d = *src;
 }
 
-static void
-pack_uint_Z_FLOAT32(const GLuint *src, void *dst)
-{
-   GLuint *d = ((GLuint *) dst);
-   const GLdouble scale = 1.0 / (GLdouble) 0xffffffff;
-   *d = (GLuint) (*src * scale);
-   assert(*d >= 0.0f);
-   assert(*d <= 1.0f);
-}
+/**
+ ** Pack uint to Z_FLOAT32 or Z_FLOAT32_X24S8.
+ **/
 
 static void
-pack_uint_Z_FLOAT32_X24S8(const GLuint *src, void *dst)
+pack_uint_Z_FLOAT32(const GLuint *src, void *dst)
 {
    GLfloat *d = ((GLfloat *) dst);
    const GLdouble scale = 1.0 / (GLdouble) 0xffffffff;
@@ -10791,9 +10905,8 @@ _mesa_get_pack_uint_z_func(mesa_format format)
    case MESA_FORMAT_Z_UNORM32:
       return pack_uint_Z_UNORM32;
    case MESA_FORMAT_Z_FLOAT32:
-      return pack_uint_Z_FLOAT32;
    case MESA_FORMAT_Z32_FLOAT_S8X24_UINT:
-      return pack_uint_Z_FLOAT32_X24S8;
+      return pack_uint_Z_FLOAT32;
    default:
       _mesa_problem(NULL, "unexpected format in _mesa_get_pack_uint_z_func()");
       return NULL;
