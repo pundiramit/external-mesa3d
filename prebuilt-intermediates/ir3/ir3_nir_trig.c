@@ -16,8 +16,8 @@ struct transform {
 
 #endif
 
-   
-static const nir_search_variable search0_0 = {
+
+   static const nir_search_variable search0_0 = {
    { nir_search_value_variable, -1 },
    0, /* x */
    false,
@@ -27,12 +27,13 @@ static const nir_search_variable search0_0 = {
 static const nir_search_expression search0 = {
    { nir_search_value_expression, -1 },
    false,
+   -1, 0,
    nir_op_fsin,
    { &search0_0.value },
    NULL,
 };
-   
-static const nir_search_constant replace0_0_0_0 = {
+
+   static const nir_search_constant replace0_0_0_0 = {
    { nir_search_value_constant, -1 },
    nir_type_float, { 0x401921fb3fa6defc /* 6.283185 */ },
 };
@@ -42,18 +43,13 @@ static const nir_search_constant replace0_0_0_1_0_0_0 = {
    nir_type_float, { 0x3fc45f30e7ff583a /* 0.159155 */ },
 };
 
-static const nir_search_variable replace0_0_0_1_0_0_1 = {
-   { nir_search_value_variable, -1 },
-   0, /* x */
-   false,
-   nir_type_invalid,
-   NULL,
-};
+/* replace0_0_0_1_0_0_1 -> search0_0 in the cache */
 static const nir_search_expression replace0_0_0_1_0_0 = {
    { nir_search_value_expression, -1 },
    false,
+   2, 1,
    nir_op_fmul,
-   { &replace0_0_0_1_0_0_0.value, &replace0_0_0_1_0_0_1.value },
+   { &replace0_0_0_1_0_0_0.value, &search0_0.value },
    NULL,
 };
 
@@ -64,6 +60,7 @@ static const nir_search_constant replace0_0_0_1_0_1 = {
 static const nir_search_expression replace0_0_0_1_0 = {
    { nir_search_value_expression, -1 },
    false,
+   1, 2,
    nir_op_fadd,
    { &replace0_0_0_1_0_0.value, &replace0_0_0_1_0_1.value },
    NULL,
@@ -71,6 +68,7 @@ static const nir_search_expression replace0_0_0_1_0 = {
 static const nir_search_expression replace0_0_0_1 = {
    { nir_search_value_expression, -1 },
    false,
+   -1, 2,
    nir_op_ffract,
    { &replace0_0_0_1_0.value },
    NULL,
@@ -78,6 +76,7 @@ static const nir_search_expression replace0_0_0_1 = {
 static const nir_search_expression replace0_0_0 = {
    { nir_search_value_expression, -1 },
    false,
+   0, 3,
    nir_op_fmul,
    { &replace0_0_0_0.value, &replace0_0_0_1.value },
    NULL,
@@ -90,6 +89,7 @@ static const nir_search_constant replace0_0_1 = {
 static const nir_search_expression replace0_0 = {
    { nir_search_value_expression, -1 },
    false,
+   -1, 3,
    nir_op_fsub,
    { &replace0_0_0.value, &replace0_0_1.value },
    NULL,
@@ -97,95 +97,45 @@ static const nir_search_expression replace0_0 = {
 static const nir_search_expression replace0 = {
    { nir_search_value_expression, -1 },
    false,
+   -1, 3,
    nir_op_fsin,
    { &replace0_0.value },
    NULL,
 };
-   
-static const nir_search_variable search1_0 = {
-   { nir_search_value_variable, -1 },
-   0, /* x */
-   false,
-   nir_type_invalid,
-   NULL,
-};
+
+   /* search1_0 -> search0_0 in the cache */
 static const nir_search_expression search1 = {
    { nir_search_value_expression, -1 },
    false,
+   -1, 0,
    nir_op_fcos,
-   { &search1_0.value },
-   NULL,
-};
-   
-static const nir_search_constant replace1_0_0_0 = {
-   { nir_search_value_constant, -1 },
-   nir_type_float, { 0x401921fb3fa6defc /* 6.283185 */ },
-};
-
-static const nir_search_constant replace1_0_0_1_0_0_0 = {
-   { nir_search_value_constant, -1 },
-   nir_type_float, { 0x3fc45f30e7ff583a /* 0.159155 */ },
-};
-
-static const nir_search_variable replace1_0_0_1_0_0_1 = {
-   { nir_search_value_variable, -1 },
-   0, /* x */
-   false,
-   nir_type_invalid,
-   NULL,
-};
-static const nir_search_expression replace1_0_0_1_0_0 = {
-   { nir_search_value_expression, -1 },
-   false,
-   nir_op_fmul,
-   { &replace1_0_0_1_0_0_0.value, &replace1_0_0_1_0_0_1.value },
+   { &search0_0.value },
    NULL,
 };
 
-static const nir_search_constant replace1_0_0_1_0_1 = {
-   { nir_search_value_constant, -1 },
-   nir_type_float, { 0x3fe0000000000000 /* 0.5 */ },
-};
-static const nir_search_expression replace1_0_0_1_0 = {
-   { nir_search_value_expression, -1 },
-   false,
-   nir_op_fadd,
-   { &replace1_0_0_1_0_0.value, &replace1_0_0_1_0_1.value },
-   NULL,
-};
-static const nir_search_expression replace1_0_0_1 = {
-   { nir_search_value_expression, -1 },
-   false,
-   nir_op_ffract,
-   { &replace1_0_0_1_0.value },
-   NULL,
-};
-static const nir_search_expression replace1_0_0 = {
-   { nir_search_value_expression, -1 },
-   false,
-   nir_op_fmul,
-   { &replace1_0_0_0.value, &replace1_0_0_1.value },
-   NULL,
-};
+   /* replace1_0_0_0 -> replace0_0_0_0 in the cache */
 
-static const nir_search_constant replace1_0_1 = {
-   { nir_search_value_constant, -1 },
-   nir_type_float, { 0x400921fb82c2bd7f /* 3.141593 */ },
-};
-static const nir_search_expression replace1_0 = {
-   { nir_search_value_expression, -1 },
-   false,
-   nir_op_fsub,
-   { &replace1_0_0.value, &replace1_0_1.value },
-   NULL,
-};
+/* replace1_0_0_1_0_0_0 -> replace0_0_0_1_0_0_0 in the cache */
+
+/* replace1_0_0_1_0_0_1 -> search0_0 in the cache */
+/* replace1_0_0_1_0_0 -> replace0_0_0_1_0_0 in the cache */
+
+/* replace1_0_0_1_0_1 -> replace0_0_0_1_0_1 in the cache */
+/* replace1_0_0_1_0 -> replace0_0_0_1_0 in the cache */
+/* replace1_0_0_1 -> replace0_0_0_1 in the cache */
+/* replace1_0_0 -> replace0_0_0 in the cache */
+
+/* replace1_0_1 -> replace0_0_1 in the cache */
+/* replace1_0 -> replace0_0 in the cache */
 static const nir_search_expression replace1 = {
    { nir_search_value_expression, -1 },
    false,
+   -1, 3,
    nir_op_fcos,
-   { &replace1_0.value },
+   { &replace0_0.value },
    NULL,
 };
+
 
 static const struct transform ir3_nir_apply_trig_workarounds_fcos_xforms[] = {
    { &search1, &replace1.value, 0 },
@@ -268,7 +218,9 @@ ir3_nir_apply_trig_workarounds(nir_shader *shader)
    bool progress = false;
    bool condition_flags[1];
    const nir_shader_compiler_options *options = shader->options;
+   const shader_info *info = &shader->info;
    (void) options;
+   (void) info;
 
    condition_flags[0] = true;
 
