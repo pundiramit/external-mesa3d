@@ -36,6 +36,7 @@ LOCAL_MODULE := libfreedreno_ir3
 LOCAL_MODULE_CLASS := STATIC_LIBRARIES
 
 intermediates := $(call local-generated-sources-dir)
+prebuilt_intermediates := $(MESA_TOP)/prebuilt-intermediates
 
 LOCAL_C_INCLUDES := \
 	$(MESA_TOP)/src/compiler/nir \
@@ -80,9 +81,8 @@ $(intermediates)/ir3/ir3_nir_imul.c: $(ir3_nir_imul_deps)
 	@mkdir -p $(dir $@)
 	$(hide) $(MESA_PYTHON2) $< -p $(MESA_TOP)/src/compiler/nir > $@
 
-$(intermediates)/ir3/ir3_nir_trig.c: $(ir3_nir_trig_deps)
-	@mkdir -p $(dir $@)
-	$(hide) $(MESA_PYTHON2) $< -p $(MESA_TOP)/src/compiler/nir > $@
+$(intermediates)/ir3/ir3_nir_trig.c: $(prebuilt_intermediates)/ir3/ir3_nir_trig.c
+	cp -a $< $@
 
 $(intermediates)/ir3/ir3_parser.c: $(ir3_parser_deps)
 	@mkdir -p $(dir $@)
