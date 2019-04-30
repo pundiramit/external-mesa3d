@@ -92,24 +92,20 @@ nir_opt_algebraic_deps := \
 $(intermediates)/nir/nir_opt_algebraic.c: $(prebuilt_intermediates)/nir/nir_opt_algebraic.c
 	cp -a $< $@
 
-$(intermediates)/spirv/spirv_info.c: $(LOCAL_PATH)/spirv/spirv_info_c.py $(LOCAL_PATH)/spirv/spirv.core.grammar.json
-	@mkdir -p $(dir $@)
-	$(hide) $(MESA_PYTHON2) $^ $@ || ($(RM) $@; false)
+$(intermediates)/spirv/spirv_info.c: $(prebuilt_intermediates)/spirv/spirv_info.c
+	cp -a $< $@
 
-$(intermediates)/spirv/vtn_gather_types.c:: $(LOCAL_PATH)/spirv/vtn_gather_types_c.py $(LOCAL_PATH)/spirv/spirv.core.grammar.json
-	@mkdir -p $(dir $@)
-	$(hide) $(MESA_PYTHON2) $^ $@ || ($(RM) $@; false)
+$(intermediates)/spirv/vtn_gather_types.c:: $(prebuilt_intermediates)/spirv/vtn_gather_types.c
+	cp -a $< $@
 
 $(intermediates)/spirv/vtn_generator_ids.h:: $(LOCAL_PATH)/spirv/vtn_generator_ids_h.py $(LOCAL_PATH)/spirv/spir-v.xml
 	@mkdir -p $(dir $@)
 	$(hide) $(MESA_PYTHON2) $^ $@ || ($(RM) $@; false)
 
 nir_intrinsics_h_gen := $(LOCAL_PATH)/nir/nir_intrinsics_h.py
-$(intermediates)/nir/nir_intrinsics.h: $(LOCAL_PATH)/nir/nir_intrinsics.py $(nir_intrinsics_h_gen)
-	@mkdir -p $(dir $@)
-	$(hide) $(MESA_PYTHON2) $(nir_intrinsics_h_gen) --outdir $(dir $@) || ($(RM) $@; false)
+$(intermediates)/nir/nir_intrinsics.h: $(prebuilt_intermediates)/nir/nir_intrinsics.h
+	cp -a $< $@
 
 nir_intrinsics_c_gen := $(LOCAL_PATH)/nir/nir_intrinsics_c.py
-$(intermediates)/nir/nir_intrinsics.c: $(LOCAL_PATH)/nir/nir_intrinsics.py $(nir_intrinsics_c_gen)
-	@mkdir -p $(dir $@)
-	$(hide) $(MESA_PYTHON2) $(nir_intrinsics_c_gen) --outdir $(dir $@) || ($(RM) $@; false)
+$(intermediates)/nir/nir_intrinsics.c: $(prebuilt_intermediates)/nir/nir_intrinsics.c
+	cp -a $< $@
