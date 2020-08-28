@@ -105,7 +105,6 @@ endef
 SUBDIRS := \
 	src/etnaviv \
 	src/freedreno \
-	src/gbm \
 	src/loader \
 	src/mapi \
 	src/compiler \
