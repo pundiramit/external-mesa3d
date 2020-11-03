@@ -5,28 +5,24 @@
 #include "nir_search.h"
 #include "nir_search_helpers.h"
 
-#ifndef NIR_OPT_ALGEBRAIC_STRUCT_DEFS
-#define NIR_OPT_ALGEBRAIC_STRUCT_DEFS
-
-struct transform {
-   const nir_search_expression *search;
-   const nir_search_value *replace;
-   unsigned condition_offset;
-};
-
-#endif
+/* What follows is NIR algebraic transform code for the following 2
+ * transforms:
+ *    ('fsin', 'x@32') => ('fsin', ('fsub', ('fmul', 6.2831853, ('ffract', ('fadd', ('fmul', 0.15915494, 'x'), 0.5))), 3.14159265))
+ *    ('fcos', 'x@32') => ('fcos', ('fsub', ('fmul', 6.2831853, ('ffract', ('fadd', ('fmul', 0.15915494, 'x'), 0.5))), 3.14159265))
+ */
 
 
    static const nir_search_variable search0_0 = {
-   { nir_search_value_variable, -1 },
+   { nir_search_value_variable, 32 },
    0, /* x */
    false,
    nir_type_invalid,
    NULL,
+   {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
 };
 static const nir_search_expression search0 = {
-   { nir_search_value_expression, -1 },
-   false,
+   { nir_search_value_expression, 32 },
+   false, false,
    -1, 0,
    nir_op_fsin,
    { &search0_0.value },
@@ -34,19 +30,19 @@ static const nir_search_expression search0 = {
 };
 
    static const nir_search_constant replace0_0_0_0 = {
-   { nir_search_value_constant, -1 },
-   nir_type_float, { 0x401921fb3fa6defc /* 6.283185 */ },
+   { nir_search_value_constant, 32 },
+   nir_type_float, { 0x401921fb53c8d4f1 /* 6.2831853 */ },
 };
 
 static const nir_search_constant replace0_0_0_1_0_0_0 = {
-   { nir_search_value_constant, -1 },
-   nir_type_float, { 0x3fc45f30e7ff583a /* 0.159155 */ },
+   { nir_search_value_constant, 32 },
+   nir_type_float, { 0x3fc45f306725feed /* 0.15915494 */ },
 };
 
 /* replace0_0_0_1_0_0_1 -> search0_0 in the cache */
 static const nir_search_expression replace0_0_0_1_0_0 = {
-   { nir_search_value_expression, -1 },
-   false,
+   { nir_search_value_expression, 32 },
+   false, false,
    2, 1,
    nir_op_fmul,
    { &replace0_0_0_1_0_0_0.value, &search0_0.value },
@@ -54,28 +50,28 @@ static const nir_search_expression replace0_0_0_1_0_0 = {
 };
 
 static const nir_search_constant replace0_0_0_1_0_1 = {
-   { nir_search_value_constant, -1 },
+   { nir_search_value_constant, 32 },
    nir_type_float, { 0x3fe0000000000000 /* 0.5 */ },
 };
 static const nir_search_expression replace0_0_0_1_0 = {
-   { nir_search_value_expression, -1 },
-   false,
+   { nir_search_value_expression, 32 },
+   false, false,
    1, 2,
    nir_op_fadd,
    { &replace0_0_0_1_0_0.value, &replace0_0_0_1_0_1.value },
    NULL,
 };
 static const nir_search_expression replace0_0_0_1 = {
-   { nir_search_value_expression, -1 },
-   false,
+   { nir_search_value_expression, 32 },
+   false, false,
    -1, 2,
    nir_op_ffract,
    { &replace0_0_0_1_0.value },
    NULL,
 };
 static const nir_search_expression replace0_0_0 = {
-   { nir_search_value_expression, -1 },
-   false,
+   { nir_search_value_expression, 32 },
+   false, false,
    0, 3,
    nir_op_fmul,
    { &replace0_0_0_0.value, &replace0_0_0_1.value },
@@ -83,20 +79,20 @@ static const nir_search_expression replace0_0_0 = {
 };
 
 static const nir_search_constant replace0_0_1 = {
-   { nir_search_value_constant, -1 },
-   nir_type_float, { 0x400921fb82c2bd7f /* 3.141593 */ },
+   { nir_search_value_constant, 32 },
+   nir_type_float, { 0x400921fb53c8d4f1 /* 3.14159265 */ },
 };
 static const nir_search_expression replace0_0 = {
-   { nir_search_value_expression, -1 },
-   false,
+   { nir_search_value_expression, 32 },
+   false, false,
    -1, 3,
    nir_op_fsub,
    { &replace0_0_0.value, &replace0_0_1.value },
    NULL,
 };
 static const nir_search_expression replace0 = {
-   { nir_search_value_expression, -1 },
-   false,
+   { nir_search_value_expression, 32 },
+   false, false,
    -1, 3,
    nir_op_fsin,
    { &replace0_0.value },
@@ -105,8 +101,8 @@ static const nir_search_expression replace0 = {
 
    /* search1_0 -> search0_0 in the cache */
 static const nir_search_expression search1 = {
-   { nir_search_value_expression, -1 },
-   false,
+   { nir_search_value_expression, 32 },
+   false, false,
    -1, 0,
    nir_op_fcos,
    { &search0_0.value },
@@ -128,8 +124,8 @@ static const nir_search_expression search1 = {
 /* replace1_0_1 -> replace0_0_1 in the cache */
 /* replace1_0 -> replace0_0 in the cache */
 static const nir_search_expression replace1 = {
-   { nir_search_value_expression, -1 },
-   false,
+   { nir_search_value_expression, 32 },
+   false, false,
    -1, 3,
    nir_op_fcos,
    { &replace0_0.value },
@@ -137,80 +133,57 @@ static const nir_search_expression replace1 = {
 };
 
 
-static const struct transform ir3_nir_apply_trig_workarounds_fcos_xforms[] = {
-   { &search1, &replace1.value, 0 },
+static const struct transform ir3_nir_apply_trig_workarounds_state2_xforms[] = {
+  { &search0, &replace0.value, 0 },
 };
-static const struct transform ir3_nir_apply_trig_workarounds_fsin_xforms[] = {
-   { &search0, &replace0.value, 0 },
+static const struct transform ir3_nir_apply_trig_workarounds_state3_xforms[] = {
+  { &search1, &replace1.value, 0 },
 };
 
-static bool
-ir3_nir_apply_trig_workarounds_block(nir_builder *build, nir_block *block,
-                   const bool *condition_flags)
-{
-   bool progress = false;
+static const struct per_op_table ir3_nir_apply_trig_workarounds_table[nir_num_search_ops] = {
+   [nir_op_fsin] = {
+      .filter = (uint16_t []) {
+         0,
+         0,
+         0,
+         0,
+      },
+      
+      .num_filtered_states = 1,
+      .table = (uint16_t []) {
+      
+         2,
+      },
+   },
+   [nir_op_fcos] = {
+      .filter = (uint16_t []) {
+         0,
+         0,
+         0,
+         0,
+      },
+      
+      .num_filtered_states = 1,
+      .table = (uint16_t []) {
+      
+         3,
+      },
+   },
+};
 
-   nir_foreach_instr_reverse_safe(instr, block) {
-      if (instr->type != nir_instr_type_alu)
-         continue;
+const struct transform *ir3_nir_apply_trig_workarounds_transforms[] = {
+   NULL,
+   NULL,
+   ir3_nir_apply_trig_workarounds_state2_xforms,
+   ir3_nir_apply_trig_workarounds_state3_xforms,
+};
 
-      nir_alu_instr *alu = nir_instr_as_alu(instr);
-      if (!alu->dest.dest.is_ssa)
-         continue;
-
-      switch (alu->op) {
-      case nir_op_fcos:
-         for (unsigned i = 0; i < ARRAY_SIZE(ir3_nir_apply_trig_workarounds_fcos_xforms); i++) {
-            const struct transform *xform = &ir3_nir_apply_trig_workarounds_fcos_xforms[i];
-            if (condition_flags[xform->condition_offset] &&
-                nir_replace_instr(build, alu, xform->search, xform->replace)) {
-               progress = true;
-               break;
-            }
-         }
-         break;
-      case nir_op_fsin:
-         for (unsigned i = 0; i < ARRAY_SIZE(ir3_nir_apply_trig_workarounds_fsin_xforms); i++) {
-            const struct transform *xform = &ir3_nir_apply_trig_workarounds_fsin_xforms[i];
-            if (condition_flags[xform->condition_offset] &&
-                nir_replace_instr(build, alu, xform->search, xform->replace)) {
-               progress = true;
-               break;
-            }
-         }
-         break;
-      default:
-         break;
-      }
-   }
-
-   return progress;
-}
-
-static bool
-ir3_nir_apply_trig_workarounds_impl(nir_function_impl *impl, const bool *condition_flags)
-{
-   bool progress = false;
-
-   nir_builder build;
-   nir_builder_init(&build, impl);
-
-   nir_foreach_block_reverse(block, impl) {
-      progress |= ir3_nir_apply_trig_workarounds_block(&build, block, condition_flags);
-   }
-
-   if (progress) {
-      nir_metadata_preserve(impl, nir_metadata_block_index |
-                                  nir_metadata_dominance);
-    } else {
-#ifndef NDEBUG
-      impl->valid_metadata &= ~nir_metadata_not_properly_reset;
-#endif
-    }
-
-   return progress;
-}
-
+const uint16_t ir3_nir_apply_trig_workarounds_transform_counts[] = {
+   0,
+   0,
+   (uint16_t)ARRAY_SIZE(ir3_nir_apply_trig_workarounds_state2_xforms),
+   (uint16_t)ARRAY_SIZE(ir3_nir_apply_trig_workarounds_state3_xforms),
+};
 
 bool
 ir3_nir_apply_trig_workarounds(nir_shader *shader)
@@ -225,8 +198,12 @@ ir3_nir_apply_trig_workarounds(nir_shader *shader)
    condition_flags[0] = true;
 
    nir_foreach_function(function, shader) {
-      if (function->impl)
-         progress |= ir3_nir_apply_trig_workarounds_impl(function->impl, condition_flags);
+      if (function->impl) {
+         progress |= nir_algebraic_impl(function->impl, condition_flags,
+                                        ir3_nir_apply_trig_workarounds_transforms,
+                                        ir3_nir_apply_trig_workarounds_transform_counts,
+                                        ir3_nir_apply_trig_workarounds_table);
+      }
    }
 
    return progress;
