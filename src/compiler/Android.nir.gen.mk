@@ -98,9 +98,8 @@ $(intermediates)/spirv/spirv_info.c: $(prebuilt_intermediates)/spirv/spirv_info.
 $(intermediates)/spirv/vtn_gather_types.c:: $(prebuilt_intermediates)/spirv/vtn_gather_types.c
 	cp -a $< $@
 
-$(intermediates)/spirv/vtn_generator_ids.h:: $(LOCAL_PATH)/spirv/vtn_generator_ids_h.py $(LOCAL_PATH)/spirv/spir-v.xml
-	@mkdir -p $(dir $@)
-	$(hide) $(MESA_PYTHON2) $^ $@ || ($(RM) $@; false)
+$(intermediates)/spirv/vtn_generator_ids.h:: $(prebuilt_intermediates)/spirv/vtn_generator_ids.h
+	cp -a $< $@
 
 nir_intrinsics_h_gen := $(LOCAL_PATH)/nir/nir_intrinsics_h.py
 $(intermediates)/nir/nir_intrinsics.h: $(prebuilt_intermediates)/nir/nir_intrinsics.h

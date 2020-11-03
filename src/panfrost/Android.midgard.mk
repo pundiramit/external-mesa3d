@@ -77,9 +77,8 @@ midgard_nir_algebraic_gen := $(LOCAL_PATH)/midgard/midgard_nir_algebraic.py
 midgard_nir_algebraic_deps := \
 	$(MESA_TOP)/src/compiler/nir/
 
-$(intermediates)/midgard_nir_algebraic.c: $(midgard_nir_algebraic_deps)
-	@mkdir -p $(dir $@)
-	$(hide) $(MESA_PYTHON3) $(midgard_nir_algebraic_gen) -p $< > $@
+$(intermediates)/midgard_nir_algebraic.c: $(prebuilt_intermediates)/panfrost/midgard/midgard_nir_algebraic.c
+	cp -a $< $@
 
 LOCAL_EXPORT_C_INCLUDE_DIRS := \
 	$(MESA_TOP)/src/panfrost/midgard/ \
