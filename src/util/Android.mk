@@ -69,10 +69,6 @@ LOCAL_GENERATED_SOURCES := $(UTIL_GENERATED_SOURCES)
 
 format_srgb_gen := $(LOCAL_PATH)/format_srgb.py
 
-$(intermediates)/format_srgb.c: $(format_srgb_gen)
-	@mkdir -p $(dir $@)
-	$(hide) $(MESA_PYTHON2) $(format_srgb_gen) $< > $@
-
 u_format_gen := $(LOCAL_PATH)/format/u_format_table.py
 u_format_deps := $(LOCAL_PATH)/format/u_format.csv \
 	$(LOCAL_PATH)/format/u_format_pack.py \
@@ -89,9 +85,6 @@ $(intermediates)/format/u_format_table.c: $(u_format_deps)
 $(intermediates)/format_srgb.c: $(prebuilt_intermediates)/util/format_srgb.c
 	@mkdir -p $(dir $@)
 	@cp -f $< $@
-
-MESA_FORMAT_SRGB_C := $(intermediates)/format_srgb.c
-LOCAL_GENERATED_SOURCES := $(MESA_FORMAT_SRGB_C)
 
 include $(MESA_COMMON_MK)
 include $(BUILD_STATIC_LIBRARY)

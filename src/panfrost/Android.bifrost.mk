@@ -48,9 +48,8 @@ LOCAL_GENERATED_SOURCES := \
 bifrost_gen_disasm_gen := $(LOCAL_PATH)/bifrost/gen_disasm.py
 bifrost_gen_disasm_deps := $(LOCAL_PATH)/bifrost/ISA.xml
 
-$(intermediates)/bifrost_gen_disasm.c: $(bifrost_gen_disasm_deps)
-	@mkdir -p $(dir $@)
-	$(hide) $(MESA_PYTHON3) $(bifrost_gen_disasm_gen) $< > $@
+$(intermediates)/bifrost_gen_disasm.c: $(prebuilt_intermediates)/panfrost/bifrost/bifrost_gen_disasm.c
+	cp -a $< $@
 
 include $(MESA_COMMON_MK)
 include $(BUILD_STATIC_LIBRARY)
@@ -90,16 +89,14 @@ bifrost_nir_algebraic_gen := $(LOCAL_PATH)/bifrost/bifrost_nir_algebraic.py
 bifrost_nir_algebraic_deps := \
 	$(MESA_TOP)/src/compiler/nir/
 
-$(intermediates)/bifrost_nir_algebraic.c: $(bifrost_nir_algebraic_deps)
-	@mkdir -p $(dir $@)
-	$(hide) $(MESA_PYTHON3) $(bifrost_nir_algebraic_gen) -p $< > $@
+$(intermediates)/bifrost_nir_algebraic.c: $(prebuilt_intermediates)/panfrost/bifrost/bifrost_nir_algebraic.c
+	cp -a $< $@
 
 bi_generated_pack_gen := $(LOCAL_PATH)/bifrost/gen_pack.py
 bi_generated_pack_deps := $(LOCAL_PATH)/bifrost/ISA.xml
 
-$(intermediates)/bi_generated_pack.h: $(bi_generated_pack_deps)
-	@mkdir -p $(dir $@)
-	$(hide) $(MESA_PYTHON3) $(bi_generated_pack_gen) $< > $@
+$(intermediates)/bi_generated_pack.h: $(prebuilt_intermediates)/panfrost/bifrost/bi_generated_pack.h
+	cp -a $< $@
 
 LOCAL_EXPORT_C_INCLUDE_DIRS := \
 	$(MESA_TOP)/src/panfrost/bifrost/ \
