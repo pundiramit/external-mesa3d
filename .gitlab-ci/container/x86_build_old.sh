@@ -24,36 +24,46 @@ EOF
 apt-get dist-upgrade -y
 
 apt-get install -y --no-remove \
-      llvm-3.9-dev \
-      libclang-3.9-dev \
-      llvm-4.0-dev \
-      libclang-4.0-dev \
-      llvm-5.0-dev \
-      libclang-5.0-dev \
-      g++ \
+      bison \
       bzip2 \
       ccache \
-      zlib1g-dev \
-      pkg-config \
+      flex \
+      g++ \
       gcc \
       git \
-      libepoxy-dev \
+      libclang-3.9-dev \
+      libclang-4.0-dev \
+      libclang-5.0-dev \
+      libclang-6.0-dev \
+      libclang-7-dev \
       libclc-dev \
-      xz-utils \
       libdrm-dev \
-      libexpat1-dev \
       libelf-dev \
-      libunwind-dev \
+      libepoxy-dev \
+      libexpat1-dev \
       libpng-dev \
+      libunwind-dev \
+      llvm-3.9-dev \
+      llvm-4.0-dev \
+      llvm-5.0-dev \
+      llvm-6.0-dev \
+      llvm-7-dev \
+      ninja-build \
+      pkg-config \
       python-mako \
       python3-mako \
-      bison \
-      flex \
-      gettext \
+      python3-pip \
+      python3-setuptools \
+      python3-wheel \
       scons \
-      meson
+      xz-utils \
+      zlib1g-dev
 
+# We need at least 0.52.0, which is not in stretch
+python3 -m pip install meson>=0.52
+
+. .gitlab-ci/container/container_pre_build.sh
 
 ############### Uninstall unused packages
 
-apt-get autoremove -y --purge
+. .gitlab-ci/container/container_post_build.sh
