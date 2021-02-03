@@ -406,7 +406,8 @@ radv_physical_device_try_create(struct radv_instance *instance,
 	disk_cache_format_hex_id(buf, device->cache_uuid, VK_UUID_SIZE * 2);
 	device->disk_cache = disk_cache_create(device->name, buf, shader_env_flags);
 
-	if (device->rad_info.chip_class < GFX8)
+	if (device->rad_info.chip_class < GFX8 ||
+	    device->rad_info.chip_class > GFX10)
 		fprintf(stderr, "WARNING: radv is not a conformant vulkan implementation, testing use only.\n");
 
 	radv_get_driver_uuid(&device->driver_uuid);
@@ -552,6 +553,7 @@ static const struct debug_control radv_debug_options[] = {
 	{"llvm", RADV_DEBUG_LLVM},
 	{"forcecompress", RADV_DEBUG_FORCE_COMPRESS},
 	{"hang", RADV_DEBUG_HANG},
+	{"invariantgeom", RADV_DEBUG_INVARIANT_GEOM},
 	{NULL, 0}
 };
 
@@ -606,6 +608,10 @@ radv_handle_per_app_options(struct radv_instance *instance,
 		} else if (!strcmp(name, "DOOMEternal")) {
 			/* Zero VRAM for Doom Eternal to fix rendering issues. */
 			instance->debug_flags |= RADV_DEBUG_ZERO_VRAM;
+		} else if (!strcmp(name, "ShadowOfTheTomb")) {
+			/* Work around flickering foliage for native Shadow of the Tomb Raider
+			 * on GFX10.3 */
+			instance->debug_flags |= RADV_DEBUG_INVARIANT_GEOM;
 		}
 	}
 
@@ -619,6 +625,14 @@ radv_handle_per_app_options(struct radv_instance *instance,
 			/* Fix various artifacts in Detroit: Become Human */
 			instance->debug_flags |= RADV_DEBUG_ZERO_VRAM |
 			                         RADV_DEBUG_DISCARD_TO_DEMOTE;
+
+			/* Fix rendering issues in Detroit: Become Human
+			 * because the game uses render loops (it
+			 * samples/renders from/to the same depth/stencil
+			 * texture inside the same draw) without input
+			 * attachments and that is invalid Vulkan usage.
+			 */
+			instance->disable_tc_compat_htile_in_general = true;
 		}
 	}
 
@@ -977,7 +991,7 @@ void radv_GetPhysicalDeviceFeatures(
 		.depthBounds                              = true,
 		.wideLines                                = true,
 		.largePoints                              = true,
-		.alphaToOne                               = true,
+		.alphaToOne                               = false,
 		.multiViewport                            = true,
 		.samplerAnisotropy                        = true,
 		.textureCompressionETC2                   = radv_device_supports_etc(pdevice),
@@ -2853,6 +2867,12 @@ VkResult radv_CreateDevice(
 					"the RGP documentation for the list of "
 					"supported GPUs!\n");
 			abort();
+		}
+
+		if (device->physical_device->rad_info.chip_class > GFX10) {
+			fprintf(stderr, "radv: Thread trace is not supported "
+					"for that GPU!\n");
+			exit(1);
 		}
 
 		/* Default buffer size set to 1MB per SE. */
@@ -5140,9 +5160,8 @@ bool radv_get_memory_fd(struct radv_device *device,
 {
 	struct radeon_bo_metadata metadata;
 
-	if (memory->image) {
-		if (memory->image->tiling != VK_IMAGE_TILING_LINEAR)
-			radv_init_metadata(device, memory->image, &metadata);
+	if (memory->image && memory->image->tiling != VK_IMAGE_TILING_LINEAR) {
+		radv_init_metadata(device, memory->image, &metadata);
 		device->ws->buffer_set_metadata(memory->bo, &metadata);
 	}
 

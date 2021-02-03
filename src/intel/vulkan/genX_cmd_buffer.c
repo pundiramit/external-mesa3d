@@ -462,8 +462,10 @@ anv_image_init_aux_tt(struct anv_cmd_buffer *cmd_buffer,
 {
    uint32_t plane = anv_image_aspect_to_plane(image->aspects, aspect);
 
+   const struct anv_surface *surface = &image->planes[plane].surface;
    uint64_t base_address =
-      anv_address_physical(image->planes[plane].address);
+      anv_address_physical(anv_address_add(image->planes[plane].address,
+                                           surface->offset));
 
    const struct isl_surf *isl_surf = &image->planes[plane].surface.isl;
    uint64_t format_bits = gen_aux_map_format_bits_for_isl_surf(isl_surf);
@@ -1231,6 +1233,17 @@ transition_color_buffer(struct anv_cmd_buffer *cmd_buffer,
             uint32_t level_layer_count =
                MIN2(layer_count, aux_layers - base_layer);
 
+            /* If will_full_fast_clear is set, the caller promises to
+             * fast-clear the largest portion of the specified range as it can.
+             * For color images, that means only the first LOD and array slice.
+             */
+            if (level == 0 && base_layer == 0 && will_full_fast_clear) {
+               base_layer++;
+               level_layer_count--;
+               if (level_layer_count == 0)
+                  continue;
+            }
+
             anv_image_ccs_op(cmd_buffer, image,
                              image->planes[plane].surface.isl.format,
                              ISL_SWIZZLE_IDENTITY,
@@ -1249,6 +1262,12 @@ transition_color_buffer(struct anv_cmd_buffer *cmd_buffer,
                           "Doing a potentially unnecessary fast-clear to "
                           "define an MCS buffer.");
          }
+
+         /* If will_full_fast_clear is set, the caller promises to fast-clear
+          * the largest portion of the specified range as it can.
+          */
+         if (will_full_fast_clear)
+            return;
 
          assert(base_level == 0 && level_count == 1);
          anv_image_mcs_op(cmd_buffer, image,
@@ -3464,8 +3483,14 @@ genX(cmd_buffer_flush_state)(struct anv_cmd_buffer *cmd_buffer)
          if (buffer) {
             uint32_t stride = dynamic_stride ?
                cmd_buffer->state.vertex_bindings[vb].stride : pipeline->vb[vb].stride;
-            uint32_t size = dynamic_size ?
-               cmd_buffer->state.vertex_bindings[vb].size : buffer->size;
+            /* From the Vulkan spec (vkCmdBindVertexBuffers2EXT):
+             *
+             * "If pname:pSizes is not NULL then pname:pSizes[i] specifies
+             * the bound size of the vertex buffer starting from the corresponding
+             * elements of pname:pBuffers[i] plus pname:pOffsets[i]."
+             */
+            UNUSED uint32_t size = dynamic_size ?
+               cmd_buffer->state.vertex_bindings[vb].size : buffer->size - offset;
 
             state = (struct GENX(VERTEX_BUFFER_STATE)) {
                .VertexBufferIndex = vb,
@@ -3482,9 +3507,14 @@ genX(cmd_buffer_flush_state)(struct anv_cmd_buffer *cmd_buffer)
                .NullVertexBuffer = offset >= buffer->size,
 
 #if GEN_GEN >= 8
-               .BufferSize = size - offset
+               .BufferSize = size,
 #else
-               .EndAddress = anv_address_add(buffer->address, size - 1),
+               /* XXX: to handle dynamic offset for older gens we might want
+                * to modify Endaddress, but there are issues when doing so:
+                *
+                * https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/7439
+                */
+               .EndAddress = anv_address_add(buffer->address, buffer->size - 1),
 #endif
             };
          } else {

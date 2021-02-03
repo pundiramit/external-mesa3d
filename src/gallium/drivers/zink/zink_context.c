@@ -59,6 +59,7 @@ zink_context_destroy(struct pipe_context *pctx)
    if (vkQueueWaitIdle(ctx->queue) != VK_SUCCESS)
       debug_printf("vkQueueWaitIdle failed\n");
 
+   pipe_resource_reference(&ctx->dummy_buffer, NULL);
    for (unsigned i = 0; i < ARRAY_SIZE(ctx->null_buffers); i++)
       pipe_resource_reference(&ctx->null_buffers[i], NULL);
 
@@ -534,11 +535,11 @@ zink_set_sampler_views(struct pipe_context *pctx,
                        struct pipe_sampler_view **views)
 {
    struct zink_context *ctx = zink_context(pctx);
-   assert(views);
    for (unsigned i = 0; i < num_views; ++i) {
+      struct pipe_sampler_view *pview = views ? views[i] : NULL;
       pipe_sampler_view_reference(
          &ctx->image_views[shader_type][start_slot + i],
-         views[i]);
+         pview);
    }
    ctx->num_image_views[shader_type] = start_slot + num_views;
 }
@@ -1304,7 +1305,8 @@ zink_context_create(struct pipe_screen *pscreen, void *priv, unsigned flags)
                                                   _mesa_hash_pointer,
                                                   _mesa_key_pointer_equal);
 
-      if (!ctx->batches[i].resources || !ctx->batches[i].sampler_views)
+      if (!ctx->batches[i].resources || !ctx->batches[i].sampler_views ||
+          !ctx->batches[i].programs)
          goto fail;
 
       util_dynarray_init(&ctx->batches[i].zombie_samplers, NULL);

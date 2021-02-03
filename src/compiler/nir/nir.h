@@ -2796,15 +2796,13 @@ typedef struct nir_block {
    uint32_t dom_pre_index, dom_post_index;
 
    /**
-    * nir_instr->index for the first nir_instr in the block.  If the block is
-    * empty, it will be the index of the immediately previous instr, or 0.
-    * Valid when the impl has nir_metadata_instr_index.
+    * Value just before the first nir_instr->index in the block, but after
+    * end_ip that of any predecessor block.
     */
    uint32_t start_ip;
    /**
-    * nir_instr->index for the last nir_instr in the block.  If the block is
-    * empty, it will be the same as start_ip.  Valid when the impl has
-    * nir_metadata_instr_index.
+    * Value just after the last nir_instr->index in the block, but before the
+    * start_ip of any successor block.
     */
    uint32_t end_ip;
 
@@ -3400,7 +3398,10 @@ typedef struct nir_shader_compiler_options {
 
    bool lower_device_index_to_zero;
 
-   /* Set if nir_lower_wpos_ytransform() should also invert gl_PointCoord. */
+   /* Set if nir_lower_pntc_ytransform() should invert gl_PointCoord.
+    * Either when frame buffer is flipped or GL_POINT_SPRITE_COORD_ORIGIN
+    * is GL_LOWER_LEFT.
+    */
    bool lower_wpos_pntc;
 
    /**
@@ -4589,8 +4590,15 @@ bool nir_lower_vars_to_ssa(nir_shader *shader);
 
 bool nir_remove_dead_derefs(nir_shader *shader);
 bool nir_remove_dead_derefs_impl(nir_function_impl *impl);
+
+typedef struct nir_remove_dead_variables_options {
+   bool (*can_remove_var)(nir_variable *var, void *data);
+   void *can_remove_var_data;
+} nir_remove_dead_variables_options;
+
 bool nir_remove_dead_variables(nir_shader *shader, nir_variable_mode modes,
-                               bool (*can_remove_var)(nir_variable *var));
+                               const nir_remove_dead_variables_options *options);
+
 bool nir_lower_variable_initializers(nir_shader *shader,
                                      nir_variable_mode modes);
 
@@ -4901,6 +4909,9 @@ typedef struct nir_lower_wpos_ytransform_options {
 bool nir_lower_wpos_ytransform(nir_shader *shader,
                                const nir_lower_wpos_ytransform_options *options);
 bool nir_lower_wpos_center(nir_shader *shader, const bool for_sample_shading);
+
+bool nir_lower_pntc_ytransform(nir_shader *shader,
+                               const gl_state_index16 clipplane_state_tokens[][STATE_LENGTH]);
 
 bool nir_lower_wrmasks(nir_shader *shader, nir_instr_filter_cb cb, const void *data);
 

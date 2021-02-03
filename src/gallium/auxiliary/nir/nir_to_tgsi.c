@@ -48,6 +48,9 @@ struct ntt_compile {
 
    unsigned loop_label;
 
+   /* if condition set up at the end of a block, for ntt_emit_if(). */
+   struct ureg_src if_cond;
+
    /* TGSI temps for our NIR SSA and register values. */
    struct ureg_dst *reg_temp;
    struct ureg_dst *ssa_temp;
@@ -255,8 +258,6 @@ ntt_setup_uniforms(struct ntt_compile *c)
                                                         var->data.image.format,
                                                         !var->data.read_only,
                                                         false);
-      } else if (var->data.mode == nir_var_mem_ubo) {
-         ureg_DECL_constant2D(c->ureg, 0, 0, var->data.driver_location + 1);
       } else {
          unsigned size;
          if (packed) {
@@ -269,6 +270,10 @@ ntt_setup_uniforms(struct ntt_compile *c)
          for (unsigned i = 0; i < size; i++)
             ureg_DECL_constant(c->ureg, var->data.driver_location + i);
       }
+   }
+
+   nir_foreach_variable_with_modes(var, c->s, nir_var_mem_ubo) {
+      ureg_DECL_constant2D(c->ureg, 0, 0, var->data.driver_location + 1);
    }
 
    for (int i = 0; i < PIPE_MAX_SAMPLERS; i++) {
@@ -2046,7 +2051,7 @@ static void
 ntt_emit_if(struct ntt_compile *c, nir_if *if_stmt)
 {
    unsigned label;
-   ureg_UIF(c->ureg, ntt_get_src(c, if_stmt->condition), &label);
+   ureg_UIF(c->ureg, c->if_cond, &label);
    ntt_emit_cf_list(c, &if_stmt->then_list);
 
    if (!exec_list_is_empty(&if_stmt->else_list)) {
@@ -2116,6 +2121,15 @@ ntt_emit_block(struct ntt_compile *c, nir_block *block)
       nir_foreach_src(instr, ntt_src_live_interval_end_cb, c);
    }
 
+   /* Set up the if condition for ntt_emit_if(), which we have to do before
+    * freeing up the temps (the "if" is treated as inside the block for liveness
+    * purposes, despite not being an instruction)
+    */
+   nir_if *nif = nir_block_get_following_if(block);
+   if (nif)
+      c->if_cond = ntt_get_src(c, nif->condition);
+
+   /* Free up any SSA temps that are unused at the end of the block. */
    unsigned index;
    BITSET_FOREACH_SET(index, block->live_out, BITSET_WORDS(c->impl->ssa_alloc)) {
       unsigned def_end_ip = c->liveness->defs[index].end;
@@ -2171,6 +2185,9 @@ ntt_emit_impl(struct ntt_compile *c, nir_function_impl *impl)
 
    ntt_setup_registers(c, &impl->registers);
    ntt_emit_cf_list(c, &impl->body);
+
+   ralloc_free(c->liveness);
+   c->liveness = NULL;
 }
 
 static int
@@ -2615,7 +2632,7 @@ nir_to_tgsi(struct nir_shader *s,
        * gl-2.1-polygon-stipple-fs on softpipe.
        */
       if ((s->info.inputs_read & VARYING_BIT_POS) ||
-          (s->info.system_values_read & (1ull << SYSTEM_VALUE_FRAG_COORD))) {
+          BITSET_TEST(s->info.system_values_read, SYSTEM_VALUE_FRAG_COORD)) {
          ureg_property(c->ureg, TGSI_PROPERTY_FS_COORD_ORIGIN,
                        s->info.fs.origin_upper_left ?
                        TGSI_FS_COORD_ORIGIN_UPPER_LEFT :

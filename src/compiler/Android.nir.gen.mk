@@ -79,7 +79,7 @@ $(intermediates)/spirv/vtn_gather_types.c: $(prebuilt_intermediates)/spirv/vtn_g
 	@mkdir -p $(dir $@)
 	@cp -f $< $@
 
-$(intermediates)/spirv/vtn_generator_ids.h:: $(prebuilt_intermediates)/spirv/vtn_generator_ids.h
+$(intermediates)/spirv/vtn_generator_ids.h: $(prebuilt_intermediates)/spirv/vtn_generator_ids.h
 	@mkdir -p $(dir $@)
 	@cp -f $< $@
 
