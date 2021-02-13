@@ -35,6 +35,9 @@ LOCAL_SRC_FILES := \
 	$(XMLCONFIG_FILES)
 
 LOCAL_MODULE := libmesa_util
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-BSD SPDX-license-identifier-MIT legacy_by_exception_only legacy_notice legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := by_exception_only notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/../../LICENSE
 
 LOCAL_MODULE_CLASS := STATIC_LIBRARIES
 

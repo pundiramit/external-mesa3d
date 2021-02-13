@@ -47,6 +47,9 @@ LOCAL_GENERATED_SOURCES := $(MESA_GEN_NIR_H)
 LOCAL_SHARED_LIBRARIES := libdrm libsync
 LOCAL_STATIC_LIBRARIES := libmesa_glsl libmesa_nir libfreedreno_drm libfreedreno_ir3 libfreedreno_perfcntrs libfreedreno_registers
 LOCAL_MODULE := libmesa_pipe_freedreno
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-MIT
+LOCAL_LICENSE_CONDITIONS := notice
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/../../../../LICENSE
 
 include $(GALLIUM_COMMON_MK)
 include $(BUILD_STATIC_LIBRARY)
