@@ -43,6 +43,7 @@ python src/intel/genxml/gen_bits_header.py --cpp-guard=GENX_BITS_H  \
 		src/intel/genxml/gen9.xml \
 		src/intel/genxml/gen11.xml \
 		src/intel/genxml/gen12.xml \
+		src/intel/genxml/gen125.xml \
 						> prebuilt-intermediates/genxml/genX_bits.h
 
 python src/intel/genxml/gen_zipped_file.py \
@@ -56,12 +57,14 @@ python src/intel/genxml/gen_zipped_file.py \
 		src/intel/genxml/gen9.xml \
 		src/intel/genxml/gen11.xml \
 		src/intel/genxml/gen12.xml \
+		src/intel/genxml/gen125.xml \
 						> prebuilt-intermediates/genxml/genX_xml.h
 
 
-python  src/intel/vulkan/anv_entrypoints_gen.py --outdir prebuilt-intermediates/vulkan/ --xml src/vulkan/registry/vk.xml
-python  src/intel/vulkan/anv_extensions_gen.py --xml src/vulkan/registry/vk.xml --out-c  prebuilt-intermediates/vulkan/anv_extensions.c
-python  src/intel/vulkan/anv_extensions_gen.py --xml src/vulkan/registry/vk.xml --out-h  prebuilt-intermediates/vulkan/anv_extensions.h
+python  src/vulkan/util/vk_entrypoints_gen.py --xml src/vulkan/registry/vk.xml \
+	--proto --weak --prefix anv --device-prefix gen7 --device-prefix gen75 --device-prefix gen8 \
+	--device-prefix gen9 --device-prefix gen11 --device-prefix gen12 --device-prefix gen125 \
+	--out-c prebuilt-intermediates/vulkan/anv_entrypoints.c --out-h prebuilt-intermediates/vulkan/anv_entrypoints.h
 python  src/vulkan/util/gen_enum_to_str.py  --xml src/vulkan/registry/vk.xml   --outdir prebuilt-intermediates/util/
 
 
