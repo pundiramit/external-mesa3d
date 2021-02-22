@@ -69,7 +69,6 @@ python src/gallium/drivers/lima/ir/lima_nir_algebraic.py -p src/compiler/nir/ > 
 python src/panfrost/midgard/midgard_nir_algebraic.py -p src/compiler/nir/ > prebuilt-intermediates/midgard/midgard_nir_algebraic.c
 python3 src/panfrost/bifrost/gen_disasm.py src/panfrost/bifrost/ISA.xml > prebuilt-intermediates/bifrost/bifrost_gen_disasm.c
 python3 src/panfrost/bifrost/bifrost_nir_algebraic.py -p src/compiler/nir/ > prebuilt-intermediates/bifrost/bifrost_nir_algebraic.c
-python3 src/panfrost/bifrost/gen_pack.py src/panfrost/bifrost/ISA.xml > prebuilt-intermediates/bifrost/bi_generated_pack.h
 
 
 python src/intel/compiler/brw_nir_trig_workarounds.py -p src/compiler/nir > prebuilt-intermediates/compiler/brw_nir_trig_workarounds.c

@@ -100,13 +100,6 @@ $(intermediates)/bifrost_nir_algebraic.c: $(prebuilt_intermediates)/bifrost/bifr
 	@mkdir -p $(dir $@)
 	@cp -f $< $@
 
-bi_generated_pack_gen := $(LOCAL_PATH)/bifrost/gen_pack.py
-bi_generated_pack_deps := $(LOCAL_PATH)/bifrost/ISA.xml
-
-$(intermediates)/bi_generated_pack.h: $(prebuilt_intermediates)/bifrost/bi_generated_pack.h
-	@mkdir -p $(dir $@)
-	@cp -f $< $@
-
 bi_builder_h_gen := $(LOCAL_PATH)/bifrost/bi_builder.h.py
 bi_builder_h_deps := $(LOCAL_PATH)/bifrost/ISA.xml $(LOCAL_PATH)/bifrost/bifrost_isa.py
 
