@@ -90,5 +90,6 @@ python src/intel/perf/gen_perf.py  --code=prebuilt-intermediates/perf/gen_perf_m
 		src/intel/perf/oa-cflgt2.xml \
 		src/intel/perf/oa-cflgt3.xml \
 		src/intel/perf/oa-icl.xml \
-		src/intel/perf/oa-lkf.xml \
-		src/intel/perf/oa-tgl.xml
+		src/intel/perf/oa-ehl.xml \
+		src/intel/perf/oa-tglgt1.xml \
+		src/intel/perf/oa-tglgt2.xml
