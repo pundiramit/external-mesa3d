@@ -69,6 +69,15 @@ python  src/vulkan/util/vk_entrypoints_gen.py --xml src/vulkan/registry/vk.xml \
 	--device-prefix gen9 --device-prefix gen11 --device-prefix gen12 --device-prefix gen125 \
 	--out-c prebuilt-intermediates/vulkan/anv_entrypoints.c --out-h prebuilt-intermediates/vulkan/anv_entrypoints.h
 python  src/vulkan/util/gen_enum_to_str.py  --xml src/vulkan/registry/vk.xml   --outdir prebuilt-intermediates/util/
+python src/vulkan/util/vk_entrypoints_gen.py --xml src/vulkan/registry/vk.xml \
+	--proto --weak --prefix vk_common --out-c prebuilt-intermediates/util/vk_common_entrypoints.c \
+	--out-h prebuilt-intermediates/util//vk_common_entrypoints.h
+python src/vulkan/util/vk_dispatch_table_gen.py --xml src/vulkan/registry/vk.xml\
+	--out-c prebuilt-intermediates/util/vk_dispatch_table.c
+python src/vulkan/util/vk_dispatch_table_gen.py --xml src/vulkan/registry/vk.xml \
+	--out-h prebuilt-intermediates/util/vk_dispatch_table.h
+python src/vulkan/util/vk_extensions_gen.py --xml src/vulkan/registry/vk.xml --out-c prebuilt-intermediates/util/vk_extensions.c
+python src/vulkan/util/vk_extensions_gen.py --xml src/vulkan/registry/vk.xml --out-h prebuilt-intermediates/util/vk_extensions.h
 
 
 python3 src/gallium/auxiliary/util/u_tracepoints.py -p src/gallium/auxiliary/util -C prebuilt-intermediates/util/u_tracepoints.c -H prebuilt-intermediates/util/u_tracepoints.h
