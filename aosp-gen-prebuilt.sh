@@ -4,8 +4,8 @@ python src/compiler/glsl/ir_expression_operation.py strings > prebuilt-intermedi
 python src/compiler/glsl/ir_expression_operation.py constant > prebuilt-intermediates/glsl/ir_expression_operation_constant.h
 python src/compiler/glsl/ir_expression_operation.py enum > prebuilt-intermediates/glsl/ir_expression_operation.h
 
-python src/freedreno/ir3/ir3_nir_trig.py -p src/compiler/nir > prebuilt-intermediates/ir3/ir3_nir_trig.c
-python src/freedreno/ir3/ir3_nir_imul.py -p src/compiler/nir > prebuilt-intermediates/ir3/ir3_nir_imul.c
+python3 src/freedreno/ir3/ir3_nir_trig.py -p src/compiler/nir > prebuilt-intermediates/ir3/ir3_nir_trig.c
+python3 src/freedreno/ir3/ir3_nir_imul.py -p src/compiler/nir > prebuilt-intermediates/ir3/ir3_nir_imul.c
 
 python src/mesa/main/format_pack.py  src/mesa/main/formats.csv  > prebuilt-intermediates/main/format_pack.c
 python src/mesa/main/format_fallback.py  src/mesa/main/formats.csv /dev/stdout  > prebuilt-intermediates/main/format_fallback.c
