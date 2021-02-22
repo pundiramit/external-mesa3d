@@ -94,6 +94,6 @@ $(intermediates)/nir/nir_intrinsics.c: $(prebuilt_intermediates)/nir/nir_intrins
 	@cp -f $< $@
 
 nir_intrinsics_indices_h_gen := $(LOCAL_PATH)/nir/nir_intrinsics_indices_h.py
-$(intermediates)/nir/nir_intrinsics_indices.h: $(LOCAL_PATH)/nir/nir_intrinsics.py $(nir_intrinsics_indices_h_gen)
+$(intermediates)/nir/nir_intrinsics_indices.h: $(prebuilt_intermediates)/nir/nir_intrinsics_indices.h
 	@mkdir -p $(dir $@)
-	$(hide) $(MESA_PYTHON2) $(nir_intrinsics_indices_h_gen) --outdir $(dir $@) || ($(RM) $@; false)
+	@cp -f $< $@
