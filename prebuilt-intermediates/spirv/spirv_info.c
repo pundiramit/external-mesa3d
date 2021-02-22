@@ -222,6 +222,9 @@ spirv_capability_to_string(SpvCapability v)
    case SpvCapabilityFragmentShadingRateKHR: return "SpvCapabilityFragmentShadingRateKHR";
    case SpvCapabilitySubgroupBallotKHR: return "SpvCapabilitySubgroupBallotKHR";
    case SpvCapabilityDrawParameters: return "SpvCapabilityDrawParameters";
+   case SpvCapabilityWorkgroupMemoryExplicitLayoutKHR: return "SpvCapabilityWorkgroupMemoryExplicitLayoutKHR";
+   case SpvCapabilityWorkgroupMemoryExplicitLayout8BitAccessKHR: return "SpvCapabilityWorkgroupMemoryExplicitLayout8BitAccessKHR";
+   case SpvCapabilityWorkgroupMemoryExplicitLayout16BitAccessKHR: return "SpvCapabilityWorkgroupMemoryExplicitLayout16BitAccessKHR";
    case SpvCapabilitySubgroupVoteKHR: return "SpvCapabilitySubgroupVoteKHR";
    case SpvCapabilityStorageBuffer16BitAccess: return "SpvCapabilityStorageBuffer16BitAccess";
    case SpvCapabilityUniformAndStorageBuffer16BitAccess: return "SpvCapabilityUniformAndStorageBuffer16BitAccess";
@@ -242,7 +245,9 @@ spirv_capability_to_string(SpvCapability v)
    case SpvCapabilityRoundingModeRTE: return "SpvCapabilityRoundingModeRTE";
    case SpvCapabilityRoundingModeRTZ: return "SpvCapabilityRoundingModeRTZ";
    case SpvCapabilityRayQueryProvisionalKHR: return "SpvCapabilityRayQueryProvisionalKHR";
-   case SpvCapabilityRayTraversalPrimitiveCullingProvisionalKHR: return "SpvCapabilityRayTraversalPrimitiveCullingProvisionalKHR";
+   case SpvCapabilityRayQueryKHR: return "SpvCapabilityRayQueryKHR";
+   case SpvCapabilityRayTraversalPrimitiveCullingKHR: return "SpvCapabilityRayTraversalPrimitiveCullingKHR";
+   case SpvCapabilityRayTracingKHR: return "SpvCapabilityRayTracingKHR";
    case SpvCapabilityFloat16ImageAMD: return "SpvCapabilityFloat16ImageAMD";
    case SpvCapabilityImageGatherBiasLodAMD: return "SpvCapabilityImageGatherBiasLodAMD";
    case SpvCapabilityFragmentMaskAMD: return "SpvCapabilityFragmentMaskAMD";
@@ -291,21 +296,37 @@ spirv_capability_to_string(SpvCapability v)
    case SpvCapabilitySubgroupBufferBlockIOINTEL: return "SpvCapabilitySubgroupBufferBlockIOINTEL";
    case SpvCapabilitySubgroupImageBlockIOINTEL: return "SpvCapabilitySubgroupImageBlockIOINTEL";
    case SpvCapabilitySubgroupImageMediaBlockIOINTEL: return "SpvCapabilitySubgroupImageMediaBlockIOINTEL";
+   case SpvCapabilityRoundToInfinityINTEL: return "SpvCapabilityRoundToInfinityINTEL";
+   case SpvCapabilityFloatingPointModeINTEL: return "SpvCapabilityFloatingPointModeINTEL";
    case SpvCapabilityIntegerFunctions2INTEL: return "SpvCapabilityIntegerFunctions2INTEL";
    case SpvCapabilityFunctionPointersINTEL: return "SpvCapabilityFunctionPointersINTEL";
    case SpvCapabilityIndirectReferencesINTEL: return "SpvCapabilityIndirectReferencesINTEL";
+   case SpvCapabilityAsmINTEL: return "SpvCapabilityAsmINTEL";
+   case SpvCapabilityVectorComputeINTEL: return "SpvCapabilityVectorComputeINTEL";
+   case SpvCapabilityVectorAnyINTEL: return "SpvCapabilityVectorAnyINTEL";
    case SpvCapabilitySubgroupAvcMotionEstimationINTEL: return "SpvCapabilitySubgroupAvcMotionEstimationINTEL";
    case SpvCapabilitySubgroupAvcMotionEstimationIntraINTEL: return "SpvCapabilitySubgroupAvcMotionEstimationIntraINTEL";
    case SpvCapabilitySubgroupAvcMotionEstimationChromaINTEL: return "SpvCapabilitySubgroupAvcMotionEstimationChromaINTEL";
+   case SpvCapabilityVariableLengthArrayINTEL: return "SpvCapabilityVariableLengthArrayINTEL";
+   case SpvCapabilityFunctionFloatControlINTEL: return "SpvCapabilityFunctionFloatControlINTEL";
    case SpvCapabilityFPGAMemoryAttributesINTEL: return "SpvCapabilityFPGAMemoryAttributesINTEL";
+   case SpvCapabilityFPFastMathModeINTEL: return "SpvCapabilityFPFastMathModeINTEL";
+   case SpvCapabilityArbitraryPrecisionIntegersINTEL: return "SpvCapabilityArbitraryPrecisionIntegersINTEL";
    case SpvCapabilityUnstructuredLoopControlsINTEL: return "SpvCapabilityUnstructuredLoopControlsINTEL";
    case SpvCapabilityFPGALoopControlsINTEL: return "SpvCapabilityFPGALoopControlsINTEL";
    case SpvCapabilityKernelAttributesINTEL: return "SpvCapabilityKernelAttributesINTEL";
    case SpvCapabilityFPGAKernelAttributesINTEL: return "SpvCapabilityFPGAKernelAttributesINTEL";
+   case SpvCapabilityFPGAMemoryAccessesINTEL: return "SpvCapabilityFPGAMemoryAccessesINTEL";
+   case SpvCapabilityFPGAClusterAttributesINTEL: return "SpvCapabilityFPGAClusterAttributesINTEL";
+   case SpvCapabilityLoopFuseINTEL: return "SpvCapabilityLoopFuseINTEL";
+   case SpvCapabilityFPGABufferLocationINTEL: return "SpvCapabilityFPGABufferLocationINTEL";
+   case SpvCapabilityUSMStorageClassesINTEL: return "SpvCapabilityUSMStorageClassesINTEL";
+   case SpvCapabilityIOPipesINTEL: return "SpvCapabilityIOPipesINTEL";
    case SpvCapabilityBlockingPipesINTEL: return "SpvCapabilityBlockingPipesINTEL";
    case SpvCapabilityFPGARegINTEL: return "SpvCapabilityFPGARegINTEL";
    case SpvCapabilityAtomicFloat32AddEXT: return "SpvCapabilityAtomicFloat32AddEXT";
    case SpvCapabilityAtomicFloat64AddEXT: return "SpvCapabilityAtomicFloat64AddEXT";
+   case SpvCapabilityLongConstantCompositeINTEL: return "SpvCapabilityLongConstantCompositeINTEL";
    case SpvCapabilityMax: break; /* silence warnings about unhandled enums. */
    }
 
@@ -377,10 +398,20 @@ spirv_decoration_to_string(SpvDecoration v)
    case SpvDecorationNonUniform: return "SpvDecorationNonUniform";
    case SpvDecorationRestrictPointer: return "SpvDecorationRestrictPointer";
    case SpvDecorationAliasedPointer: return "SpvDecorationAliasedPointer";
+   case SpvDecorationSIMTCallINTEL: return "SpvDecorationSIMTCallINTEL";
    case SpvDecorationReferencedIndirectlyINTEL: return "SpvDecorationReferencedIndirectlyINTEL";
+   case SpvDecorationClobberINTEL: return "SpvDecorationClobberINTEL";
+   case SpvDecorationSideEffectsINTEL: return "SpvDecorationSideEffectsINTEL";
+   case SpvDecorationVectorComputeVariableINTEL: return "SpvDecorationVectorComputeVariableINTEL";
+   case SpvDecorationFuncParamIOKindINTEL: return "SpvDecorationFuncParamIOKindINTEL";
+   case SpvDecorationVectorComputeFunctionINTEL: return "SpvDecorationVectorComputeFunctionINTEL";
+   case SpvDecorationStackCallINTEL: return "SpvDecorationStackCallINTEL";
+   case SpvDecorationGlobalVariableOffsetINTEL: return "SpvDecorationGlobalVariableOffsetINTEL";
    case SpvDecorationCounterBuffer: return "SpvDecorationCounterBuffer";
    case SpvDecorationUserSemantic: return "SpvDecorationUserSemantic";
    case SpvDecorationUserTypeGOOGLE: return "SpvDecorationUserTypeGOOGLE";
+   case SpvDecorationFunctionRoundingModeINTEL: return "SpvDecorationFunctionRoundingModeINTEL";
+   case SpvDecorationFunctionDenormModeINTEL: return "SpvDecorationFunctionDenormModeINTEL";
    case SpvDecorationRegisterINTEL: return "SpvDecorationRegisterINTEL";
    case SpvDecorationMemoryINTEL: return "SpvDecorationMemoryINTEL";
    case SpvDecorationNumbanksINTEL: return "SpvDecorationNumbanksINTEL";
@@ -393,6 +424,17 @@ spirv_decoration_to_string(SpvDecoration v)
    case SpvDecorationMergeINTEL: return "SpvDecorationMergeINTEL";
    case SpvDecorationBankBitsINTEL: return "SpvDecorationBankBitsINTEL";
    case SpvDecorationForcePow2DepthINTEL: return "SpvDecorationForcePow2DepthINTEL";
+   case SpvDecorationBurstCoalesceINTEL: return "SpvDecorationBurstCoalesceINTEL";
+   case SpvDecorationCacheSizeINTEL: return "SpvDecorationCacheSizeINTEL";
+   case SpvDecorationDontStaticallyCoalesceINTEL: return "SpvDecorationDontStaticallyCoalesceINTEL";
+   case SpvDecorationPrefetchINTEL: return "SpvDecorationPrefetchINTEL";
+   case SpvDecorationStallEnableINTEL: return "SpvDecorationStallEnableINTEL";
+   case SpvDecorationFuseLoopsInFunctionINTEL: return "SpvDecorationFuseLoopsInFunctionINTEL";
+   case SpvDecorationBufferLocationINTEL: return "SpvDecorationBufferLocationINTEL";
+   case SpvDecorationIOPipeStorageINTEL: return "SpvDecorationIOPipeStorageINTEL";
+   case SpvDecorationFunctionFloatingPointModeINTEL: return "SpvDecorationFunctionFloatingPointModeINTEL";
+   case SpvDecorationSingleElementVectorINTEL: return "SpvDecorationSingleElementVectorINTEL";
+   case SpvDecorationVectorComputeCallableFunctionINTEL: return "SpvDecorationVectorComputeCallableFunctionINTEL";
    case SpvDecorationMax: break; /* silence warnings about unhandled enums. */
    }
 
@@ -476,10 +518,16 @@ spirv_executionmode_to_string(SpvExecutionMode v)
    case SpvExecutionModeSampleInterlockUnorderedEXT: return "SpvExecutionModeSampleInterlockUnorderedEXT";
    case SpvExecutionModeShadingRateInterlockOrderedEXT: return "SpvExecutionModeShadingRateInterlockOrderedEXT";
    case SpvExecutionModeShadingRateInterlockUnorderedEXT: return "SpvExecutionModeShadingRateInterlockUnorderedEXT";
+   case SpvExecutionModeSharedLocalMemorySizeINTEL: return "SpvExecutionModeSharedLocalMemorySizeINTEL";
+   case SpvExecutionModeRoundingModeRTPINTEL: return "SpvExecutionModeRoundingModeRTPINTEL";
+   case SpvExecutionModeRoundingModeRTNINTEL: return "SpvExecutionModeRoundingModeRTNINTEL";
+   case SpvExecutionModeFloatingPointModeALTINTEL: return "SpvExecutionModeFloatingPointModeALTINTEL";
+   case SpvExecutionModeFloatingPointModeIEEEINTEL: return "SpvExecutionModeFloatingPointModeIEEEINTEL";
    case SpvExecutionModeMaxWorkgroupSizeINTEL: return "SpvExecutionModeMaxWorkgroupSizeINTEL";
    case SpvExecutionModeMaxWorkDimINTEL: return "SpvExecutionModeMaxWorkDimINTEL";
    case SpvExecutionModeNoGlobalOffsetINTEL: return "SpvExecutionModeNoGlobalOffsetINTEL";
    case SpvExecutionModeNumSIMDWorkitemsINTEL: return "SpvExecutionModeNumSIMDWorkitemsINTEL";
+   case SpvExecutionModeSchedulerTargetFmaxMhzINTEL: return "SpvExecutionModeSchedulerTargetFmaxMhzINTEL";
    case SpvExecutionModeMax: break; /* silence warnings about unhandled enums. */
    }
 
@@ -602,6 +650,8 @@ spirv_storageclass_to_string(SpvStorageClass v)
    case SpvStorageClassShaderRecordBufferNV: return "SpvStorageClassShaderRecordBufferNV";
    case SpvStorageClassPhysicalStorageBuffer: return "SpvStorageClassPhysicalStorageBuffer";
    case SpvStorageClassCodeSectionINTEL: return "SpvStorageClassCodeSectionINTEL";
+   case SpvStorageClassDeviceOnlyINTEL: return "SpvStorageClassDeviceOnlyINTEL";
+   case SpvStorageClassHostOnlyINTEL: return "SpvStorageClassHostOnlyINTEL";
    case SpvStorageClassMax: break; /* silence warnings about unhandled enums. */
    }
 
@@ -1001,7 +1051,12 @@ spirv_op_to_string(SpvOp v)
    case SpvOpSubgroupAnyKHR: return "SpvOpSubgroupAnyKHR";
    case SpvOpSubgroupAllEqualKHR: return "SpvOpSubgroupAllEqualKHR";
    case SpvOpSubgroupReadInvocationKHR: return "SpvOpSubgroupReadInvocationKHR";
-   case SpvOpTypeRayQueryProvisionalKHR: return "SpvOpTypeRayQueryProvisionalKHR";
+   case SpvOpTraceRayKHR: return "SpvOpTraceRayKHR";
+   case SpvOpExecuteCallableKHR: return "SpvOpExecuteCallableKHR";
+   case SpvOpConvertUToAccelerationStructureKHR: return "SpvOpConvertUToAccelerationStructureKHR";
+   case SpvOpIgnoreIntersectionKHR: return "SpvOpIgnoreIntersectionKHR";
+   case SpvOpTerminateRayKHR: return "SpvOpTerminateRayKHR";
+   case SpvOpTypeRayQueryKHR: return "SpvOpTypeRayQueryKHR";
    case SpvOpRayQueryInitializeKHR: return "SpvOpRayQueryInitializeKHR";
    case SpvOpRayQueryTerminateKHR: return "SpvOpRayQueryTerminateKHR";
    case SpvOpRayQueryGenerateIntersectionKHR: return "SpvOpRayQueryGenerateIntersectionKHR";
@@ -1061,8 +1116,11 @@ spirv_op_to_string(SpvOp v)
    case SpvOpUSubSatINTEL: return "SpvOpUSubSatINTEL";
    case SpvOpIMul32x16INTEL: return "SpvOpIMul32x16INTEL";
    case SpvOpUMul32x16INTEL: return "SpvOpUMul32x16INTEL";
-   case SpvOpFunctionPointerINTEL: return "SpvOpFunctionPointerINTEL";
+   case SpvOpConstFunctionPointerINTEL: return "SpvOpConstFunctionPointerINTEL";
    case SpvOpFunctionPointerCallINTEL: return "SpvOpFunctionPointerCallINTEL";
+   case SpvOpAsmTargetINTEL: return "SpvOpAsmTargetINTEL";
+   case SpvOpAsmINTEL: return "SpvOpAsmINTEL";
+   case SpvOpAsmCallINTEL: return "SpvOpAsmCallINTEL";
    case SpvOpDecorateString: return "SpvOpDecorateString";
    case SpvOpMemberDecorateString: return "SpvOpMemberDecorateString";
    case SpvOpVmeImageINTEL: return "SpvOpVmeImageINTEL";
@@ -1183,7 +1241,12 @@ spirv_op_to_string(SpvOp v)
    case SpvOpSubgroupAvcSicGetPackedSkcLumaCountThresholdINTEL: return "SpvOpSubgroupAvcSicGetPackedSkcLumaCountThresholdINTEL";
    case SpvOpSubgroupAvcSicGetPackedSkcLumaSumThresholdINTEL: return "SpvOpSubgroupAvcSicGetPackedSkcLumaSumThresholdINTEL";
    case SpvOpSubgroupAvcSicGetInterRawSadsINTEL: return "SpvOpSubgroupAvcSicGetInterRawSadsINTEL";
+   case SpvOpVariableLengthArrayINTEL: return "SpvOpVariableLengthArrayINTEL";
+   case SpvOpSaveMemoryINTEL: return "SpvOpSaveMemoryINTEL";
+   case SpvOpRestoreMemoryINTEL: return "SpvOpRestoreMemoryINTEL";
    case SpvOpLoopControlINTEL: return "SpvOpLoopControlINTEL";
+   case SpvOpPtrCastToCrossWorkgroupINTEL: return "SpvOpPtrCastToCrossWorkgroupINTEL";
+   case SpvOpCrossWorkgroupCastToPtrINTEL: return "SpvOpCrossWorkgroupCastToPtrINTEL";
    case SpvOpReadPipeBlockingINTEL: return "SpvOpReadPipeBlockingINTEL";
    case SpvOpWritePipeBlockingINTEL: return "SpvOpWritePipeBlockingINTEL";
    case SpvOpFPGARegINTEL: return "SpvOpFPGARegINTEL";
@@ -1205,6 +1268,10 @@ spirv_op_to_string(SpvOp v)
    case SpvOpRayQueryGetIntersectionObjectToWorldKHR: return "SpvOpRayQueryGetIntersectionObjectToWorldKHR";
    case SpvOpRayQueryGetIntersectionWorldToObjectKHR: return "SpvOpRayQueryGetIntersectionWorldToObjectKHR";
    case SpvOpAtomicFAddEXT: return "SpvOpAtomicFAddEXT";
+   case SpvOpTypeBufferSurfaceINTEL: return "SpvOpTypeBufferSurfaceINTEL";
+   case SpvOpTypeStructContinuedINTEL: return "SpvOpTypeStructContinuedINTEL";
+   case SpvOpConstantCompositeContinuedINTEL: return "SpvOpConstantCompositeContinuedINTEL";
+   case SpvOpSpecConstantCompositeContinuedINTEL: return "SpvOpSpecConstantCompositeContinuedINTEL";
    case SpvOpMax: break; /* silence warnings about unhandled enums. */
    }
 

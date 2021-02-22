@@ -42,5 +42,6 @@ enum vtn_generator {
    vtn_generator_angle_shader_compiler = 24,
    vtn_generator_messiah_shader_compiler = 25,
    vtn_generator_xenia_emulator_microcode_translator = 26,
+   vtn_generator_rust_gpu_compiler_backend = 27,
    vtn_generator_max = 0xffff,
 };

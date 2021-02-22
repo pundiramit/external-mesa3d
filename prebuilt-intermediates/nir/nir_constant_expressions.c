@@ -1344,6 +1344,175 @@ evaluate_b16all_fequal4(nir_const_value *_dst_val,
       }
 }
 static void
+evaluate_b16all_fequal5(nir_const_value *_dst_val,
+                 UNUSED unsigned num_components,
+                  unsigned bit_size,
+                 UNUSED nir_const_value **_src,
+                 UNUSED unsigned execution_mode)
+{
+      switch (bit_size) {
+      case 16: {
+         
+   
+
+
+      const struct float16_vec src0 = {
+            _mesa_half_to_float(_src[0][0].u16),
+            _mesa_half_to_float(_src[0][1].u16),
+            _mesa_half_to_float(_src[0][2].u16),
+            _mesa_half_to_float(_src[0][3].u16),
+            _mesa_half_to_float(_src[0][4].u16),
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float16_vec src1 = {
+            _mesa_half_to_float(_src[1][0].u16),
+            _mesa_half_to_float(_src[1][1].u16),
+            _mesa_half_to_float(_src[1][2].u16),
+            _mesa_half_to_float(_src[1][3].u16),
+            _mesa_half_to_float(_src[1][4].u16),
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool16_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].i16 = -(int)dst.x;
+
+
+         break;
+      }
+      case 32: {
+         
+   
+
+
+      const struct float32_vec src0 = {
+            _src[0][0].f32,
+            _src[0][1].f32,
+            _src[0][2].f32,
+            _src[0][3].f32,
+            _src[0][4].f32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float32_vec src1 = {
+            _src[1][0].f32,
+            _src[1][1].f32,
+            _src[1][2].f32,
+            _src[1][3].f32,
+            _src[1][4].f32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool16_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].i16 = -(int)dst.x;
+
+
+         break;
+      }
+      case 64: {
+         
+   
+
+
+      const struct float64_vec src0 = {
+            _src[0][0].f64,
+            _src[0][1].f64,
+            _src[0][2].f64,
+            _src[0][3].f64,
+            _src[0][4].f64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float64_vec src1 = {
+            _src[1][0].f64,
+            _src[1][1].f64,
+            _src[1][2].f64,
+            _src[1][3].f64,
+            _src[1][4].f64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool16_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].i16 = -(int)dst.x;
+
+
+         break;
+      }
+
+      default:
+         unreachable("unknown bit width");
+      }
+}
+static void
 evaluate_b16all_fequal8(nir_const_value *_dst_val,
                  UNUSED unsigned num_components,
                   unsigned bit_size,
@@ -2655,6 +2824,289 @@ evaluate_b16all_iequal4(nir_const_value *_dst_val,
       }
 }
 static void
+evaluate_b16all_iequal5(nir_const_value *_dst_val,
+                 UNUSED unsigned num_components,
+                  unsigned bit_size,
+                 UNUSED nir_const_value **_src,
+                 UNUSED unsigned execution_mode)
+{
+      switch (bit_size) {
+      case 1: {
+         
+   
+
+
+      const struct int1_vec src0 = {
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][0].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][1].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][2].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][3].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][4].b,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int1_vec src1 = {
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][0].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][1].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][2].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][3].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][4].b,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool16_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].i16 = -(int)dst.x;
+
+
+         break;
+      }
+      case 8: {
+         
+   
+
+
+      const struct int8_vec src0 = {
+            _src[0][0].i8,
+            _src[0][1].i8,
+            _src[0][2].i8,
+            _src[0][3].i8,
+            _src[0][4].i8,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int8_vec src1 = {
+            _src[1][0].i8,
+            _src[1][1].i8,
+            _src[1][2].i8,
+            _src[1][3].i8,
+            _src[1][4].i8,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool16_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].i16 = -(int)dst.x;
+
+
+         break;
+      }
+      case 16: {
+         
+   
+
+
+      const struct int16_vec src0 = {
+            _src[0][0].i16,
+            _src[0][1].i16,
+            _src[0][2].i16,
+            _src[0][3].i16,
+            _src[0][4].i16,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int16_vec src1 = {
+            _src[1][0].i16,
+            _src[1][1].i16,
+            _src[1][2].i16,
+            _src[1][3].i16,
+            _src[1][4].i16,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool16_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].i16 = -(int)dst.x;
+
+
+         break;
+      }
+      case 32: {
+         
+   
+
+
+      const struct int32_vec src0 = {
+            _src[0][0].i32,
+            _src[0][1].i32,
+            _src[0][2].i32,
+            _src[0][3].i32,
+            _src[0][4].i32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int32_vec src1 = {
+            _src[1][0].i32,
+            _src[1][1].i32,
+            _src[1][2].i32,
+            _src[1][3].i32,
+            _src[1][4].i32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool16_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].i16 = -(int)dst.x;
+
+
+         break;
+      }
+      case 64: {
+         
+   
+
+
+      const struct int64_vec src0 = {
+            _src[0][0].i64,
+            _src[0][1].i64,
+            _src[0][2].i64,
+            _src[0][3].i64,
+            _src[0][4].i64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int64_vec src1 = {
+            _src[1][0].i64,
+            _src[1][1].i64,
+            _src[1][2].i64,
+            _src[1][3].i64,
+            _src[1][4].i64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool16_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].i16 = -(int)dst.x;
+
+
+         break;
+      }
+
+      default:
+         unreachable("unknown bit width");
+      }
+}
+static void
 evaluate_b16all_iequal8(nir_const_value *_dst_val,
                  UNUSED unsigned num_components,
                   unsigned bit_size,
@@ -3608,6 +4060,175 @@ evaluate_b16any_fnequal4(nir_const_value *_dst_val,
       struct bool16_vec dst;
 
          dst.x = dst.y = dst.z = dst.w = ((src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].i16 = -(int)dst.x;
+
+
+         break;
+      }
+
+      default:
+         unreachable("unknown bit width");
+      }
+}
+static void
+evaluate_b16any_fnequal5(nir_const_value *_dst_val,
+                 UNUSED unsigned num_components,
+                  unsigned bit_size,
+                 UNUSED nir_const_value **_src,
+                 UNUSED unsigned execution_mode)
+{
+      switch (bit_size) {
+      case 16: {
+         
+   
+
+
+      const struct float16_vec src0 = {
+            _mesa_half_to_float(_src[0][0].u16),
+            _mesa_half_to_float(_src[0][1].u16),
+            _mesa_half_to_float(_src[0][2].u16),
+            _mesa_half_to_float(_src[0][3].u16),
+            _mesa_half_to_float(_src[0][4].u16),
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float16_vec src1 = {
+            _mesa_half_to_float(_src[1][0].u16),
+            _mesa_half_to_float(_src[1][1].u16),
+            _mesa_half_to_float(_src[1][2].u16),
+            _mesa_half_to_float(_src[1][3].u16),
+            _mesa_half_to_float(_src[1][4].u16),
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool16_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].i16 = -(int)dst.x;
+
+
+         break;
+      }
+      case 32: {
+         
+   
+
+
+      const struct float32_vec src0 = {
+            _src[0][0].f32,
+            _src[0][1].f32,
+            _src[0][2].f32,
+            _src[0][3].f32,
+            _src[0][4].f32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float32_vec src1 = {
+            _src[1][0].f32,
+            _src[1][1].f32,
+            _src[1][2].f32,
+            _src[1][3].f32,
+            _src[1][4].f32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool16_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].i16 = -(int)dst.x;
+
+
+         break;
+      }
+      case 64: {
+         
+   
+
+
+      const struct float64_vec src0 = {
+            _src[0][0].f64,
+            _src[0][1].f64,
+            _src[0][2].f64,
+            _src[0][3].f64,
+            _src[0][4].f64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float64_vec src1 = {
+            _src[1][0].f64,
+            _src[1][1].f64,
+            _src[1][2].f64,
+            _src[1][3].f64,
+            _src[1][4].f64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool16_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
 
             _dst_val[0].i16 = -(int)dst.x;
 
@@ -4919,6 +5540,289 @@ evaluate_b16any_inequal4(nir_const_value *_dst_val,
       struct bool16_vec dst;
 
          dst.x = dst.y = dst.z = dst.w = ((src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].i16 = -(int)dst.x;
+
+
+         break;
+      }
+
+      default:
+         unreachable("unknown bit width");
+      }
+}
+static void
+evaluate_b16any_inequal5(nir_const_value *_dst_val,
+                 UNUSED unsigned num_components,
+                  unsigned bit_size,
+                 UNUSED nir_const_value **_src,
+                 UNUSED unsigned execution_mode)
+{
+      switch (bit_size) {
+      case 1: {
+         
+   
+
+
+      const struct int1_vec src0 = {
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][0].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][1].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][2].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][3].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][4].b,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int1_vec src1 = {
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][0].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][1].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][2].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][3].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][4].b,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool16_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].i16 = -(int)dst.x;
+
+
+         break;
+      }
+      case 8: {
+         
+   
+
+
+      const struct int8_vec src0 = {
+            _src[0][0].i8,
+            _src[0][1].i8,
+            _src[0][2].i8,
+            _src[0][3].i8,
+            _src[0][4].i8,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int8_vec src1 = {
+            _src[1][0].i8,
+            _src[1][1].i8,
+            _src[1][2].i8,
+            _src[1][3].i8,
+            _src[1][4].i8,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool16_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].i16 = -(int)dst.x;
+
+
+         break;
+      }
+      case 16: {
+         
+   
+
+
+      const struct int16_vec src0 = {
+            _src[0][0].i16,
+            _src[0][1].i16,
+            _src[0][2].i16,
+            _src[0][3].i16,
+            _src[0][4].i16,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int16_vec src1 = {
+            _src[1][0].i16,
+            _src[1][1].i16,
+            _src[1][2].i16,
+            _src[1][3].i16,
+            _src[1][4].i16,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool16_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].i16 = -(int)dst.x;
+
+
+         break;
+      }
+      case 32: {
+         
+   
+
+
+      const struct int32_vec src0 = {
+            _src[0][0].i32,
+            _src[0][1].i32,
+            _src[0][2].i32,
+            _src[0][3].i32,
+            _src[0][4].i32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int32_vec src1 = {
+            _src[1][0].i32,
+            _src[1][1].i32,
+            _src[1][2].i32,
+            _src[1][3].i32,
+            _src[1][4].i32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool16_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].i16 = -(int)dst.x;
+
+
+         break;
+      }
+      case 64: {
+         
+   
+
+
+      const struct int64_vec src0 = {
+            _src[0][0].i64,
+            _src[0][1].i64,
+            _src[0][2].i64,
+            _src[0][3].i64,
+            _src[0][4].i64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int64_vec src1 = {
+            _src[1][0].i64,
+            _src[1][1].i64,
+            _src[1][2].i64,
+            _src[1][3].i64,
+            _src[1][4].i64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool16_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
 
             _dst_val[0].i16 = -(int)dst.x;
 
@@ -7043,6 +7947,175 @@ evaluate_b32all_fequal4(nir_const_value *_dst_val,
       }
 }
 static void
+evaluate_b32all_fequal5(nir_const_value *_dst_val,
+                 UNUSED unsigned num_components,
+                  unsigned bit_size,
+                 UNUSED nir_const_value **_src,
+                 UNUSED unsigned execution_mode)
+{
+      switch (bit_size) {
+      case 16: {
+         
+   
+
+
+      const struct float16_vec src0 = {
+            _mesa_half_to_float(_src[0][0].u16),
+            _mesa_half_to_float(_src[0][1].u16),
+            _mesa_half_to_float(_src[0][2].u16),
+            _mesa_half_to_float(_src[0][3].u16),
+            _mesa_half_to_float(_src[0][4].u16),
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float16_vec src1 = {
+            _mesa_half_to_float(_src[1][0].u16),
+            _mesa_half_to_float(_src[1][1].u16),
+            _mesa_half_to_float(_src[1][2].u16),
+            _mesa_half_to_float(_src[1][3].u16),
+            _mesa_half_to_float(_src[1][4].u16),
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool32_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].i32 = -(int)dst.x;
+
+
+         break;
+      }
+      case 32: {
+         
+   
+
+
+      const struct float32_vec src0 = {
+            _src[0][0].f32,
+            _src[0][1].f32,
+            _src[0][2].f32,
+            _src[0][3].f32,
+            _src[0][4].f32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float32_vec src1 = {
+            _src[1][0].f32,
+            _src[1][1].f32,
+            _src[1][2].f32,
+            _src[1][3].f32,
+            _src[1][4].f32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool32_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].i32 = -(int)dst.x;
+
+
+         break;
+      }
+      case 64: {
+         
+   
+
+
+      const struct float64_vec src0 = {
+            _src[0][0].f64,
+            _src[0][1].f64,
+            _src[0][2].f64,
+            _src[0][3].f64,
+            _src[0][4].f64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float64_vec src1 = {
+            _src[1][0].f64,
+            _src[1][1].f64,
+            _src[1][2].f64,
+            _src[1][3].f64,
+            _src[1][4].f64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool32_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].i32 = -(int)dst.x;
+
+
+         break;
+      }
+
+      default:
+         unreachable("unknown bit width");
+      }
+}
+static void
 evaluate_b32all_fequal8(nir_const_value *_dst_val,
                  UNUSED unsigned num_components,
                   unsigned bit_size,
@@ -8354,6 +9427,289 @@ evaluate_b32all_iequal4(nir_const_value *_dst_val,
       }
 }
 static void
+evaluate_b32all_iequal5(nir_const_value *_dst_val,
+                 UNUSED unsigned num_components,
+                  unsigned bit_size,
+                 UNUSED nir_const_value **_src,
+                 UNUSED unsigned execution_mode)
+{
+      switch (bit_size) {
+      case 1: {
+         
+   
+
+
+      const struct int1_vec src0 = {
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][0].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][1].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][2].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][3].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][4].b,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int1_vec src1 = {
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][0].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][1].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][2].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][3].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][4].b,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool32_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].i32 = -(int)dst.x;
+
+
+         break;
+      }
+      case 8: {
+         
+   
+
+
+      const struct int8_vec src0 = {
+            _src[0][0].i8,
+            _src[0][1].i8,
+            _src[0][2].i8,
+            _src[0][3].i8,
+            _src[0][4].i8,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int8_vec src1 = {
+            _src[1][0].i8,
+            _src[1][1].i8,
+            _src[1][2].i8,
+            _src[1][3].i8,
+            _src[1][4].i8,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool32_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].i32 = -(int)dst.x;
+
+
+         break;
+      }
+      case 16: {
+         
+   
+
+
+      const struct int16_vec src0 = {
+            _src[0][0].i16,
+            _src[0][1].i16,
+            _src[0][2].i16,
+            _src[0][3].i16,
+            _src[0][4].i16,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int16_vec src1 = {
+            _src[1][0].i16,
+            _src[1][1].i16,
+            _src[1][2].i16,
+            _src[1][3].i16,
+            _src[1][4].i16,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool32_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].i32 = -(int)dst.x;
+
+
+         break;
+      }
+      case 32: {
+         
+   
+
+
+      const struct int32_vec src0 = {
+            _src[0][0].i32,
+            _src[0][1].i32,
+            _src[0][2].i32,
+            _src[0][3].i32,
+            _src[0][4].i32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int32_vec src1 = {
+            _src[1][0].i32,
+            _src[1][1].i32,
+            _src[1][2].i32,
+            _src[1][3].i32,
+            _src[1][4].i32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool32_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].i32 = -(int)dst.x;
+
+
+         break;
+      }
+      case 64: {
+         
+   
+
+
+      const struct int64_vec src0 = {
+            _src[0][0].i64,
+            _src[0][1].i64,
+            _src[0][2].i64,
+            _src[0][3].i64,
+            _src[0][4].i64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int64_vec src1 = {
+            _src[1][0].i64,
+            _src[1][1].i64,
+            _src[1][2].i64,
+            _src[1][3].i64,
+            _src[1][4].i64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool32_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].i32 = -(int)dst.x;
+
+
+         break;
+      }
+
+      default:
+         unreachable("unknown bit width");
+      }
+}
+static void
 evaluate_b32all_iequal8(nir_const_value *_dst_val,
                  UNUSED unsigned num_components,
                   unsigned bit_size,
@@ -9307,6 +10663,175 @@ evaluate_b32any_fnequal4(nir_const_value *_dst_val,
       struct bool32_vec dst;
 
          dst.x = dst.y = dst.z = dst.w = ((src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].i32 = -(int)dst.x;
+
+
+         break;
+      }
+
+      default:
+         unreachable("unknown bit width");
+      }
+}
+static void
+evaluate_b32any_fnequal5(nir_const_value *_dst_val,
+                 UNUSED unsigned num_components,
+                  unsigned bit_size,
+                 UNUSED nir_const_value **_src,
+                 UNUSED unsigned execution_mode)
+{
+      switch (bit_size) {
+      case 16: {
+         
+   
+
+
+      const struct float16_vec src0 = {
+            _mesa_half_to_float(_src[0][0].u16),
+            _mesa_half_to_float(_src[0][1].u16),
+            _mesa_half_to_float(_src[0][2].u16),
+            _mesa_half_to_float(_src[0][3].u16),
+            _mesa_half_to_float(_src[0][4].u16),
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float16_vec src1 = {
+            _mesa_half_to_float(_src[1][0].u16),
+            _mesa_half_to_float(_src[1][1].u16),
+            _mesa_half_to_float(_src[1][2].u16),
+            _mesa_half_to_float(_src[1][3].u16),
+            _mesa_half_to_float(_src[1][4].u16),
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool32_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].i32 = -(int)dst.x;
+
+
+         break;
+      }
+      case 32: {
+         
+   
+
+
+      const struct float32_vec src0 = {
+            _src[0][0].f32,
+            _src[0][1].f32,
+            _src[0][2].f32,
+            _src[0][3].f32,
+            _src[0][4].f32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float32_vec src1 = {
+            _src[1][0].f32,
+            _src[1][1].f32,
+            _src[1][2].f32,
+            _src[1][3].f32,
+            _src[1][4].f32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool32_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].i32 = -(int)dst.x;
+
+
+         break;
+      }
+      case 64: {
+         
+   
+
+
+      const struct float64_vec src0 = {
+            _src[0][0].f64,
+            _src[0][1].f64,
+            _src[0][2].f64,
+            _src[0][3].f64,
+            _src[0][4].f64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float64_vec src1 = {
+            _src[1][0].f64,
+            _src[1][1].f64,
+            _src[1][2].f64,
+            _src[1][3].f64,
+            _src[1][4].f64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool32_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
 
             _dst_val[0].i32 = -(int)dst.x;
 
@@ -10630,6 +12155,289 @@ evaluate_b32any_inequal4(nir_const_value *_dst_val,
       }
 }
 static void
+evaluate_b32any_inequal5(nir_const_value *_dst_val,
+                 UNUSED unsigned num_components,
+                  unsigned bit_size,
+                 UNUSED nir_const_value **_src,
+                 UNUSED unsigned execution_mode)
+{
+      switch (bit_size) {
+      case 1: {
+         
+   
+
+
+      const struct int1_vec src0 = {
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][0].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][1].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][2].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][3].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][4].b,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int1_vec src1 = {
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][0].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][1].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][2].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][3].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][4].b,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool32_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].i32 = -(int)dst.x;
+
+
+         break;
+      }
+      case 8: {
+         
+   
+
+
+      const struct int8_vec src0 = {
+            _src[0][0].i8,
+            _src[0][1].i8,
+            _src[0][2].i8,
+            _src[0][3].i8,
+            _src[0][4].i8,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int8_vec src1 = {
+            _src[1][0].i8,
+            _src[1][1].i8,
+            _src[1][2].i8,
+            _src[1][3].i8,
+            _src[1][4].i8,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool32_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].i32 = -(int)dst.x;
+
+
+         break;
+      }
+      case 16: {
+         
+   
+
+
+      const struct int16_vec src0 = {
+            _src[0][0].i16,
+            _src[0][1].i16,
+            _src[0][2].i16,
+            _src[0][3].i16,
+            _src[0][4].i16,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int16_vec src1 = {
+            _src[1][0].i16,
+            _src[1][1].i16,
+            _src[1][2].i16,
+            _src[1][3].i16,
+            _src[1][4].i16,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool32_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].i32 = -(int)dst.x;
+
+
+         break;
+      }
+      case 32: {
+         
+   
+
+
+      const struct int32_vec src0 = {
+            _src[0][0].i32,
+            _src[0][1].i32,
+            _src[0][2].i32,
+            _src[0][3].i32,
+            _src[0][4].i32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int32_vec src1 = {
+            _src[1][0].i32,
+            _src[1][1].i32,
+            _src[1][2].i32,
+            _src[1][3].i32,
+            _src[1][4].i32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool32_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].i32 = -(int)dst.x;
+
+
+         break;
+      }
+      case 64: {
+         
+   
+
+
+      const struct int64_vec src0 = {
+            _src[0][0].i64,
+            _src[0][1].i64,
+            _src[0][2].i64,
+            _src[0][3].i64,
+            _src[0][4].i64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int64_vec src1 = {
+            _src[1][0].i64,
+            _src[1][1].i64,
+            _src[1][2].i64,
+            _src[1][3].i64,
+            _src[1][4].i64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool32_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].i32 = -(int)dst.x;
+
+
+         break;
+      }
+
+      default:
+         unreachable("unknown bit width");
+      }
+}
+static void
 evaluate_b32any_inequal8(nir_const_value *_dst_val,
                  UNUSED unsigned num_components,
                   unsigned bit_size,
@@ -11702,6 +13510,175 @@ evaluate_b8all_fequal4(nir_const_value *_dst_val,
       struct bool8_vec dst;
 
          dst.x = dst.y = dst.z = dst.w = ((src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].i8 = -(int)dst.x;
+
+
+         break;
+      }
+
+      default:
+         unreachable("unknown bit width");
+      }
+}
+static void
+evaluate_b8all_fequal5(nir_const_value *_dst_val,
+                 UNUSED unsigned num_components,
+                  unsigned bit_size,
+                 UNUSED nir_const_value **_src,
+                 UNUSED unsigned execution_mode)
+{
+      switch (bit_size) {
+      case 16: {
+         
+   
+
+
+      const struct float16_vec src0 = {
+            _mesa_half_to_float(_src[0][0].u16),
+            _mesa_half_to_float(_src[0][1].u16),
+            _mesa_half_to_float(_src[0][2].u16),
+            _mesa_half_to_float(_src[0][3].u16),
+            _mesa_half_to_float(_src[0][4].u16),
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float16_vec src1 = {
+            _mesa_half_to_float(_src[1][0].u16),
+            _mesa_half_to_float(_src[1][1].u16),
+            _mesa_half_to_float(_src[1][2].u16),
+            _mesa_half_to_float(_src[1][3].u16),
+            _mesa_half_to_float(_src[1][4].u16),
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool8_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].i8 = -(int)dst.x;
+
+
+         break;
+      }
+      case 32: {
+         
+   
+
+
+      const struct float32_vec src0 = {
+            _src[0][0].f32,
+            _src[0][1].f32,
+            _src[0][2].f32,
+            _src[0][3].f32,
+            _src[0][4].f32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float32_vec src1 = {
+            _src[1][0].f32,
+            _src[1][1].f32,
+            _src[1][2].f32,
+            _src[1][3].f32,
+            _src[1][4].f32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool8_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].i8 = -(int)dst.x;
+
+
+         break;
+      }
+      case 64: {
+         
+   
+
+
+      const struct float64_vec src0 = {
+            _src[0][0].f64,
+            _src[0][1].f64,
+            _src[0][2].f64,
+            _src[0][3].f64,
+            _src[0][4].f64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float64_vec src1 = {
+            _src[1][0].f64,
+            _src[1][1].f64,
+            _src[1][2].f64,
+            _src[1][3].f64,
+            _src[1][4].f64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool8_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
 
             _dst_val[0].i8 = -(int)dst.x;
 
@@ -13025,6 +15002,289 @@ evaluate_b8all_iequal4(nir_const_value *_dst_val,
       }
 }
 static void
+evaluate_b8all_iequal5(nir_const_value *_dst_val,
+                 UNUSED unsigned num_components,
+                  unsigned bit_size,
+                 UNUSED nir_const_value **_src,
+                 UNUSED unsigned execution_mode)
+{
+      switch (bit_size) {
+      case 1: {
+         
+   
+
+
+      const struct int1_vec src0 = {
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][0].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][1].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][2].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][3].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][4].b,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int1_vec src1 = {
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][0].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][1].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][2].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][3].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][4].b,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool8_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].i8 = -(int)dst.x;
+
+
+         break;
+      }
+      case 8: {
+         
+   
+
+
+      const struct int8_vec src0 = {
+            _src[0][0].i8,
+            _src[0][1].i8,
+            _src[0][2].i8,
+            _src[0][3].i8,
+            _src[0][4].i8,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int8_vec src1 = {
+            _src[1][0].i8,
+            _src[1][1].i8,
+            _src[1][2].i8,
+            _src[1][3].i8,
+            _src[1][4].i8,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool8_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].i8 = -(int)dst.x;
+
+
+         break;
+      }
+      case 16: {
+         
+   
+
+
+      const struct int16_vec src0 = {
+            _src[0][0].i16,
+            _src[0][1].i16,
+            _src[0][2].i16,
+            _src[0][3].i16,
+            _src[0][4].i16,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int16_vec src1 = {
+            _src[1][0].i16,
+            _src[1][1].i16,
+            _src[1][2].i16,
+            _src[1][3].i16,
+            _src[1][4].i16,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool8_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].i8 = -(int)dst.x;
+
+
+         break;
+      }
+      case 32: {
+         
+   
+
+
+      const struct int32_vec src0 = {
+            _src[0][0].i32,
+            _src[0][1].i32,
+            _src[0][2].i32,
+            _src[0][3].i32,
+            _src[0][4].i32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int32_vec src1 = {
+            _src[1][0].i32,
+            _src[1][1].i32,
+            _src[1][2].i32,
+            _src[1][3].i32,
+            _src[1][4].i32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool8_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].i8 = -(int)dst.x;
+
+
+         break;
+      }
+      case 64: {
+         
+   
+
+
+      const struct int64_vec src0 = {
+            _src[0][0].i64,
+            _src[0][1].i64,
+            _src[0][2].i64,
+            _src[0][3].i64,
+            _src[0][4].i64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int64_vec src1 = {
+            _src[1][0].i64,
+            _src[1][1].i64,
+            _src[1][2].i64,
+            _src[1][3].i64,
+            _src[1][4].i64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool8_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].i8 = -(int)dst.x;
+
+
+         break;
+      }
+
+      default:
+         unreachable("unknown bit width");
+      }
+}
+static void
 evaluate_b8all_iequal8(nir_const_value *_dst_val,
                  UNUSED unsigned num_components,
                   unsigned bit_size,
@@ -13978,6 +16238,175 @@ evaluate_b8any_fnequal4(nir_const_value *_dst_val,
       struct bool8_vec dst;
 
          dst.x = dst.y = dst.z = dst.w = ((src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].i8 = -(int)dst.x;
+
+
+         break;
+      }
+
+      default:
+         unreachable("unknown bit width");
+      }
+}
+static void
+evaluate_b8any_fnequal5(nir_const_value *_dst_val,
+                 UNUSED unsigned num_components,
+                  unsigned bit_size,
+                 UNUSED nir_const_value **_src,
+                 UNUSED unsigned execution_mode)
+{
+      switch (bit_size) {
+      case 16: {
+         
+   
+
+
+      const struct float16_vec src0 = {
+            _mesa_half_to_float(_src[0][0].u16),
+            _mesa_half_to_float(_src[0][1].u16),
+            _mesa_half_to_float(_src[0][2].u16),
+            _mesa_half_to_float(_src[0][3].u16),
+            _mesa_half_to_float(_src[0][4].u16),
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float16_vec src1 = {
+            _mesa_half_to_float(_src[1][0].u16),
+            _mesa_half_to_float(_src[1][1].u16),
+            _mesa_half_to_float(_src[1][2].u16),
+            _mesa_half_to_float(_src[1][3].u16),
+            _mesa_half_to_float(_src[1][4].u16),
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool8_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].i8 = -(int)dst.x;
+
+
+         break;
+      }
+      case 32: {
+         
+   
+
+
+      const struct float32_vec src0 = {
+            _src[0][0].f32,
+            _src[0][1].f32,
+            _src[0][2].f32,
+            _src[0][3].f32,
+            _src[0][4].f32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float32_vec src1 = {
+            _src[1][0].f32,
+            _src[1][1].f32,
+            _src[1][2].f32,
+            _src[1][3].f32,
+            _src[1][4].f32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool8_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].i8 = -(int)dst.x;
+
+
+         break;
+      }
+      case 64: {
+         
+   
+
+
+      const struct float64_vec src0 = {
+            _src[0][0].f64,
+            _src[0][1].f64,
+            _src[0][2].f64,
+            _src[0][3].f64,
+            _src[0][4].f64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float64_vec src1 = {
+            _src[1][0].f64,
+            _src[1][1].f64,
+            _src[1][2].f64,
+            _src[1][3].f64,
+            _src[1][4].f64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool8_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
 
             _dst_val[0].i8 = -(int)dst.x;
 
@@ -15301,6 +17730,289 @@ evaluate_b8any_inequal4(nir_const_value *_dst_val,
       }
 }
 static void
+evaluate_b8any_inequal5(nir_const_value *_dst_val,
+                 UNUSED unsigned num_components,
+                  unsigned bit_size,
+                 UNUSED nir_const_value **_src,
+                 UNUSED unsigned execution_mode)
+{
+      switch (bit_size) {
+      case 1: {
+         
+   
+
+
+      const struct int1_vec src0 = {
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][0].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][1].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][2].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][3].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][4].b,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int1_vec src1 = {
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][0].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][1].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][2].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][3].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][4].b,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool8_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].i8 = -(int)dst.x;
+
+
+         break;
+      }
+      case 8: {
+         
+   
+
+
+      const struct int8_vec src0 = {
+            _src[0][0].i8,
+            _src[0][1].i8,
+            _src[0][2].i8,
+            _src[0][3].i8,
+            _src[0][4].i8,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int8_vec src1 = {
+            _src[1][0].i8,
+            _src[1][1].i8,
+            _src[1][2].i8,
+            _src[1][3].i8,
+            _src[1][4].i8,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool8_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].i8 = -(int)dst.x;
+
+
+         break;
+      }
+      case 16: {
+         
+   
+
+
+      const struct int16_vec src0 = {
+            _src[0][0].i16,
+            _src[0][1].i16,
+            _src[0][2].i16,
+            _src[0][3].i16,
+            _src[0][4].i16,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int16_vec src1 = {
+            _src[1][0].i16,
+            _src[1][1].i16,
+            _src[1][2].i16,
+            _src[1][3].i16,
+            _src[1][4].i16,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool8_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].i8 = -(int)dst.x;
+
+
+         break;
+      }
+      case 32: {
+         
+   
+
+
+      const struct int32_vec src0 = {
+            _src[0][0].i32,
+            _src[0][1].i32,
+            _src[0][2].i32,
+            _src[0][3].i32,
+            _src[0][4].i32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int32_vec src1 = {
+            _src[1][0].i32,
+            _src[1][1].i32,
+            _src[1][2].i32,
+            _src[1][3].i32,
+            _src[1][4].i32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool8_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].i8 = -(int)dst.x;
+
+
+         break;
+      }
+      case 64: {
+         
+   
+
+
+      const struct int64_vec src0 = {
+            _src[0][0].i64,
+            _src[0][1].i64,
+            _src[0][2].i64,
+            _src[0][3].i64,
+            _src[0][4].i64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int64_vec src1 = {
+            _src[1][0].i64,
+            _src[1][1].i64,
+            _src[1][2].i64,
+            _src[1][3].i64,
+            _src[1][4].i64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool8_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].i8 = -(int)dst.x;
+
+
+         break;
+      }
+
+      default:
+         unreachable("unknown bit width");
+      }
+}
+static void
 evaluate_b8any_inequal8(nir_const_value *_dst_val,
                  UNUSED unsigned num_components,
                   unsigned bit_size,
@@ -16373,6 +19085,175 @@ evaluate_ball_fequal4(nir_const_value *_dst_val,
       struct bool1_vec dst;
 
          dst.x = dst.y = dst.z = dst.w = ((src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].b = -(int)dst.x;
+
+
+         break;
+      }
+
+      default:
+         unreachable("unknown bit width");
+      }
+}
+static void
+evaluate_ball_fequal5(nir_const_value *_dst_val,
+                 UNUSED unsigned num_components,
+                  unsigned bit_size,
+                 UNUSED nir_const_value **_src,
+                 UNUSED unsigned execution_mode)
+{
+      switch (bit_size) {
+      case 16: {
+         
+   
+
+
+      const struct float16_vec src0 = {
+            _mesa_half_to_float(_src[0][0].u16),
+            _mesa_half_to_float(_src[0][1].u16),
+            _mesa_half_to_float(_src[0][2].u16),
+            _mesa_half_to_float(_src[0][3].u16),
+            _mesa_half_to_float(_src[0][4].u16),
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float16_vec src1 = {
+            _mesa_half_to_float(_src[1][0].u16),
+            _mesa_half_to_float(_src[1][1].u16),
+            _mesa_half_to_float(_src[1][2].u16),
+            _mesa_half_to_float(_src[1][3].u16),
+            _mesa_half_to_float(_src[1][4].u16),
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool1_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].b = -(int)dst.x;
+
+
+         break;
+      }
+      case 32: {
+         
+   
+
+
+      const struct float32_vec src0 = {
+            _src[0][0].f32,
+            _src[0][1].f32,
+            _src[0][2].f32,
+            _src[0][3].f32,
+            _src[0][4].f32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float32_vec src1 = {
+            _src[1][0].f32,
+            _src[1][1].f32,
+            _src[1][2].f32,
+            _src[1][3].f32,
+            _src[1][4].f32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool1_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].b = -(int)dst.x;
+
+
+         break;
+      }
+      case 64: {
+         
+   
+
+
+      const struct float64_vec src0 = {
+            _src[0][0].f64,
+            _src[0][1].f64,
+            _src[0][2].f64,
+            _src[0][3].f64,
+            _src[0][4].f64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float64_vec src1 = {
+            _src[1][0].f64,
+            _src[1][1].f64,
+            _src[1][2].f64,
+            _src[1][3].f64,
+            _src[1][4].f64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool1_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
 
             _dst_val[0].b = -(int)dst.x;
 
@@ -17696,6 +20577,289 @@ evaluate_ball_iequal4(nir_const_value *_dst_val,
       }
 }
 static void
+evaluate_ball_iequal5(nir_const_value *_dst_val,
+                 UNUSED unsigned num_components,
+                  unsigned bit_size,
+                 UNUSED nir_const_value **_src,
+                 UNUSED unsigned execution_mode)
+{
+      switch (bit_size) {
+      case 1: {
+         
+   
+
+
+      const struct int1_vec src0 = {
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][0].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][1].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][2].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][3].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][4].b,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int1_vec src1 = {
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][0].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][1].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][2].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][3].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][4].b,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool1_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].b = -(int)dst.x;
+
+
+         break;
+      }
+      case 8: {
+         
+   
+
+
+      const struct int8_vec src0 = {
+            _src[0][0].i8,
+            _src[0][1].i8,
+            _src[0][2].i8,
+            _src[0][3].i8,
+            _src[0][4].i8,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int8_vec src1 = {
+            _src[1][0].i8,
+            _src[1][1].i8,
+            _src[1][2].i8,
+            _src[1][3].i8,
+            _src[1][4].i8,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool1_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].b = -(int)dst.x;
+
+
+         break;
+      }
+      case 16: {
+         
+   
+
+
+      const struct int16_vec src0 = {
+            _src[0][0].i16,
+            _src[0][1].i16,
+            _src[0][2].i16,
+            _src[0][3].i16,
+            _src[0][4].i16,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int16_vec src1 = {
+            _src[1][0].i16,
+            _src[1][1].i16,
+            _src[1][2].i16,
+            _src[1][3].i16,
+            _src[1][4].i16,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool1_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].b = -(int)dst.x;
+
+
+         break;
+      }
+      case 32: {
+         
+   
+
+
+      const struct int32_vec src0 = {
+            _src[0][0].i32,
+            _src[0][1].i32,
+            _src[0][2].i32,
+            _src[0][3].i32,
+            _src[0][4].i32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int32_vec src1 = {
+            _src[1][0].i32,
+            _src[1][1].i32,
+            _src[1][2].i32,
+            _src[1][3].i32,
+            _src[1][4].i32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool1_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].b = -(int)dst.x;
+
+
+         break;
+      }
+      case 64: {
+         
+   
+
+
+      const struct int64_vec src0 = {
+            _src[0][0].i64,
+            _src[0][1].i64,
+            _src[0][2].i64,
+            _src[0][3].i64,
+            _src[0][4].i64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int64_vec src1 = {
+            _src[1][0].i64,
+            _src[1][1].i64,
+            _src[1][2].i64,
+            _src[1][3].i64,
+            _src[1][4].i64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool1_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x));
+
+            _dst_val[0].b = -(int)dst.x;
+
+
+         break;
+      }
+
+      default:
+         unreachable("unknown bit width");
+      }
+}
+static void
 evaluate_ball_iequal8(nir_const_value *_dst_val,
                  UNUSED unsigned num_components,
                   unsigned bit_size,
@@ -18649,6 +21813,175 @@ evaluate_bany_fnequal4(nir_const_value *_dst_val,
       struct bool1_vec dst;
 
          dst.x = dst.y = dst.z = dst.w = ((src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].b = -(int)dst.x;
+
+
+         break;
+      }
+
+      default:
+         unreachable("unknown bit width");
+      }
+}
+static void
+evaluate_bany_fnequal5(nir_const_value *_dst_val,
+                 UNUSED unsigned num_components,
+                  unsigned bit_size,
+                 UNUSED nir_const_value **_src,
+                 UNUSED unsigned execution_mode)
+{
+      switch (bit_size) {
+      case 16: {
+         
+   
+
+
+      const struct float16_vec src0 = {
+            _mesa_half_to_float(_src[0][0].u16),
+            _mesa_half_to_float(_src[0][1].u16),
+            _mesa_half_to_float(_src[0][2].u16),
+            _mesa_half_to_float(_src[0][3].u16),
+            _mesa_half_to_float(_src[0][4].u16),
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float16_vec src1 = {
+            _mesa_half_to_float(_src[1][0].u16),
+            _mesa_half_to_float(_src[1][1].u16),
+            _mesa_half_to_float(_src[1][2].u16),
+            _mesa_half_to_float(_src[1][3].u16),
+            _mesa_half_to_float(_src[1][4].u16),
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool1_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].b = -(int)dst.x;
+
+
+         break;
+      }
+      case 32: {
+         
+   
+
+
+      const struct float32_vec src0 = {
+            _src[0][0].f32,
+            _src[0][1].f32,
+            _src[0][2].f32,
+            _src[0][3].f32,
+            _src[0][4].f32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float32_vec src1 = {
+            _src[1][0].f32,
+            _src[1][1].f32,
+            _src[1][2].f32,
+            _src[1][3].f32,
+            _src[1][4].f32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool1_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].b = -(int)dst.x;
+
+
+         break;
+      }
+      case 64: {
+         
+   
+
+
+      const struct float64_vec src0 = {
+            _src[0][0].f64,
+            _src[0][1].f64,
+            _src[0][2].f64,
+            _src[0][3].f64,
+            _src[0][4].f64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float64_vec src1 = {
+            _src[1][0].f64,
+            _src[1][1].f64,
+            _src[1][2].f64,
+            _src[1][3].f64,
+            _src[1][4].f64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool1_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
 
             _dst_val[0].b = -(int)dst.x;
 
@@ -19960,6 +23293,289 @@ evaluate_bany_inequal4(nir_const_value *_dst_val,
       struct bool1_vec dst;
 
          dst.x = dst.y = dst.z = dst.w = ((src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].b = -(int)dst.x;
+
+
+         break;
+      }
+
+      default:
+         unreachable("unknown bit width");
+      }
+}
+static void
+evaluate_bany_inequal5(nir_const_value *_dst_val,
+                 UNUSED unsigned num_components,
+                  unsigned bit_size,
+                 UNUSED nir_const_value **_src,
+                 UNUSED unsigned execution_mode)
+{
+      switch (bit_size) {
+      case 1: {
+         
+   
+
+
+      const struct int1_vec src0 = {
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][0].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][1].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][2].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][3].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[0][4].b,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int1_vec src1 = {
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][0].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][1].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][2].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][3].b,
+             /* 1-bit integers use a 0/-1 convention */
+             -(int1_t)_src[1][4].b,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool1_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].b = -(int)dst.x;
+
+
+         break;
+      }
+      case 8: {
+         
+   
+
+
+      const struct int8_vec src0 = {
+            _src[0][0].i8,
+            _src[0][1].i8,
+            _src[0][2].i8,
+            _src[0][3].i8,
+            _src[0][4].i8,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int8_vec src1 = {
+            _src[1][0].i8,
+            _src[1][1].i8,
+            _src[1][2].i8,
+            _src[1][3].i8,
+            _src[1][4].i8,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool1_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].b = -(int)dst.x;
+
+
+         break;
+      }
+      case 16: {
+         
+   
+
+
+      const struct int16_vec src0 = {
+            _src[0][0].i16,
+            _src[0][1].i16,
+            _src[0][2].i16,
+            _src[0][3].i16,
+            _src[0][4].i16,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int16_vec src1 = {
+            _src[1][0].i16,
+            _src[1][1].i16,
+            _src[1][2].i16,
+            _src[1][3].i16,
+            _src[1][4].i16,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool1_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].b = -(int)dst.x;
+
+
+         break;
+      }
+      case 32: {
+         
+   
+
+
+      const struct int32_vec src0 = {
+            _src[0][0].i32,
+            _src[0][1].i32,
+            _src[0][2].i32,
+            _src[0][3].i32,
+            _src[0][4].i32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int32_vec src1 = {
+            _src[1][0].i32,
+            _src[1][1].i32,
+            _src[1][2].i32,
+            _src[1][3].i32,
+            _src[1][4].i32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool1_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
+
+            _dst_val[0].b = -(int)dst.x;
+
+
+         break;
+      }
+      case 64: {
+         
+   
+
+
+      const struct int64_vec src0 = {
+            _src[0][0].i64,
+            _src[0][1].i64,
+            _src[0][2].i64,
+            _src[0][3].i64,
+            _src[0][4].i64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct int64_vec src1 = {
+            _src[1][0].i64,
+            _src[1][1].i64,
+            _src[1][2].i64,
+            _src[1][3].i64,
+            _src[1][4].i64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct bool1_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x));
 
             _dst_val[0].b = -(int)dst.x;
 
@@ -23211,6 +26827,66 @@ evaluate_fall_equal4(nir_const_value *_dst_val,
 
 }
 static void
+evaluate_fall_equal5(nir_const_value *_dst_val,
+                 UNUSED unsigned num_components,
+                 UNUSED unsigned bit_size,
+                 UNUSED nir_const_value **_src,
+                 UNUSED unsigned execution_mode)
+{
+      
+   
+
+
+      const struct float32_vec src0 = {
+            _src[0][0].f32,
+            _src[0][1].f32,
+            _src[0][2].f32,
+            _src[0][3].f32,
+            _src[0][4].f32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float32_vec src1 = {
+            _src[1][0].f32,
+            _src[1][1].f32,
+            _src[1][2].f32,
+            _src[1][3].f32,
+            _src[1][4].f32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct float32_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e == src1.e) && (src0.w == src1.w) && (src0.z == src1.z) && (src0.y == src1.y) && (src0.x == src1.x)) ? 1.0f : 0.0f;
+
+            _dst_val[0].f32 = dst.x;
+
+               if (nir_is_denorm_flush_to_zero(execution_mode, 32)) {
+                  constant_denorm_flush_to_zero(&_dst_val[0], 32);
+               }
+
+}
+static void
 evaluate_fall_equal8(nir_const_value *_dst_val,
                  UNUSED unsigned num_components,
                  UNUSED unsigned bit_size,
@@ -23502,6 +27178,66 @@ evaluate_fany_nequal4(nir_const_value *_dst_val,
       struct float32_vec dst;
 
          dst.x = dst.y = dst.z = dst.w = ((src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x)) ? 1.0f : 0.0f;
+
+            _dst_val[0].f32 = dst.x;
+
+               if (nir_is_denorm_flush_to_zero(execution_mode, 32)) {
+                  constant_denorm_flush_to_zero(&_dst_val[0], 32);
+               }
+
+}
+static void
+evaluate_fany_nequal5(nir_const_value *_dst_val,
+                 UNUSED unsigned num_components,
+                 UNUSED unsigned bit_size,
+                 UNUSED nir_const_value **_src,
+                 UNUSED unsigned execution_mode)
+{
+      
+   
+
+
+      const struct float32_vec src0 = {
+            _src[0][0].f32,
+            _src[0][1].f32,
+            _src[0][2].f32,
+            _src[0][3].f32,
+            _src[0][4].f32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float32_vec src1 = {
+            _src[1][0].f32,
+            _src[1][1].f32,
+            _src[1][2].f32,
+            _src[1][3].f32,
+            _src[1][4].f32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct float32_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e != src1.e) || (src0.w != src1.w) || (src0.z != src1.z) || (src0.y != src1.y) || (src0.x != src1.x)) ? 1.0f : 0.0f;
 
             _dst_val[0].f32 = dst.x;
 
@@ -25994,6 +29730,427 @@ evaluate_fdot4_replicated(nir_const_value *_dst_val,
       struct float64_vec dst;
 
          dst.x = dst.y = dst.z = dst.w = ((src0.w * src1.w) + (src0.z * src1.z) + (src0.y * src1.y) + (src0.x * src1.x));
+
+            _dst_val[0].f64 = dst.x;
+
+               if (nir_is_denorm_flush_to_zero(execution_mode, 64)) {
+                  constant_denorm_flush_to_zero(&_dst_val[0], 64);
+               }
+            _dst_val[1].f64 = dst.y;
+
+               if (nir_is_denorm_flush_to_zero(execution_mode, 64)) {
+                  constant_denorm_flush_to_zero(&_dst_val[1], 64);
+               }
+            _dst_val[2].f64 = dst.z;
+
+               if (nir_is_denorm_flush_to_zero(execution_mode, 64)) {
+                  constant_denorm_flush_to_zero(&_dst_val[2], 64);
+               }
+            _dst_val[3].f64 = dst.w;
+
+               if (nir_is_denorm_flush_to_zero(execution_mode, 64)) {
+                  constant_denorm_flush_to_zero(&_dst_val[3], 64);
+               }
+
+         break;
+      }
+
+      default:
+         unreachable("unknown bit width");
+      }
+}
+static void
+evaluate_fdot5(nir_const_value *_dst_val,
+                 UNUSED unsigned num_components,
+                  unsigned bit_size,
+                 UNUSED nir_const_value **_src,
+                 UNUSED unsigned execution_mode)
+{
+      switch (bit_size) {
+      case 16: {
+         
+   
+
+
+      const struct float16_vec src0 = {
+            _mesa_half_to_float(_src[0][0].u16),
+            _mesa_half_to_float(_src[0][1].u16),
+            _mesa_half_to_float(_src[0][2].u16),
+            _mesa_half_to_float(_src[0][3].u16),
+            _mesa_half_to_float(_src[0][4].u16),
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float16_vec src1 = {
+            _mesa_half_to_float(_src[1][0].u16),
+            _mesa_half_to_float(_src[1][1].u16),
+            _mesa_half_to_float(_src[1][2].u16),
+            _mesa_half_to_float(_src[1][3].u16),
+            _mesa_half_to_float(_src[1][4].u16),
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct float16_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e * src1.e) + (src0.w * src1.w) + (src0.z * src1.z) + (src0.y * src1.y) + (src0.x * src1.x));
+
+            if (nir_is_rounding_mode_rtz(execution_mode, 16)) {
+               _dst_val[0].u16 = _mesa_float_to_float16_rtz(dst.x);
+            } else {
+               _dst_val[0].u16 = _mesa_float_to_float16_rtne(dst.x);
+            }
+
+               if (nir_is_denorm_flush_to_zero(execution_mode, 16)) {
+                  constant_denorm_flush_to_zero(&_dst_val[0], 16);
+               }
+
+         break;
+      }
+      case 32: {
+         
+   
+
+
+      const struct float32_vec src0 = {
+            _src[0][0].f32,
+            _src[0][1].f32,
+            _src[0][2].f32,
+            _src[0][3].f32,
+            _src[0][4].f32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float32_vec src1 = {
+            _src[1][0].f32,
+            _src[1][1].f32,
+            _src[1][2].f32,
+            _src[1][3].f32,
+            _src[1][4].f32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct float32_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e * src1.e) + (src0.w * src1.w) + (src0.z * src1.z) + (src0.y * src1.y) + (src0.x * src1.x));
+
+            _dst_val[0].f32 = dst.x;
+
+               if (nir_is_denorm_flush_to_zero(execution_mode, 32)) {
+                  constant_denorm_flush_to_zero(&_dst_val[0], 32);
+               }
+
+         break;
+      }
+      case 64: {
+         
+   
+
+
+      const struct float64_vec src0 = {
+            _src[0][0].f64,
+            _src[0][1].f64,
+            _src[0][2].f64,
+            _src[0][3].f64,
+            _src[0][4].f64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float64_vec src1 = {
+            _src[1][0].f64,
+            _src[1][1].f64,
+            _src[1][2].f64,
+            _src[1][3].f64,
+            _src[1][4].f64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct float64_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e * src1.e) + (src0.w * src1.w) + (src0.z * src1.z) + (src0.y * src1.y) + (src0.x * src1.x));
+
+            _dst_val[0].f64 = dst.x;
+
+               if (nir_is_denorm_flush_to_zero(execution_mode, 64)) {
+                  constant_denorm_flush_to_zero(&_dst_val[0], 64);
+               }
+
+         break;
+      }
+
+      default:
+         unreachable("unknown bit width");
+      }
+}
+static void
+evaluate_fdot5_replicated(nir_const_value *_dst_val,
+                 UNUSED unsigned num_components,
+                  unsigned bit_size,
+                 UNUSED nir_const_value **_src,
+                 UNUSED unsigned execution_mode)
+{
+      switch (bit_size) {
+      case 16: {
+         
+   
+
+
+      const struct float16_vec src0 = {
+            _mesa_half_to_float(_src[0][0].u16),
+            _mesa_half_to_float(_src[0][1].u16),
+            _mesa_half_to_float(_src[0][2].u16),
+            _mesa_half_to_float(_src[0][3].u16),
+            _mesa_half_to_float(_src[0][4].u16),
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float16_vec src1 = {
+            _mesa_half_to_float(_src[1][0].u16),
+            _mesa_half_to_float(_src[1][1].u16),
+            _mesa_half_to_float(_src[1][2].u16),
+            _mesa_half_to_float(_src[1][3].u16),
+            _mesa_half_to_float(_src[1][4].u16),
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct float16_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e * src1.e) + (src0.w * src1.w) + (src0.z * src1.z) + (src0.y * src1.y) + (src0.x * src1.x));
+
+            if (nir_is_rounding_mode_rtz(execution_mode, 16)) {
+               _dst_val[0].u16 = _mesa_float_to_float16_rtz(dst.x);
+            } else {
+               _dst_val[0].u16 = _mesa_float_to_float16_rtne(dst.x);
+            }
+
+               if (nir_is_denorm_flush_to_zero(execution_mode, 16)) {
+                  constant_denorm_flush_to_zero(&_dst_val[0], 16);
+               }
+            if (nir_is_rounding_mode_rtz(execution_mode, 16)) {
+               _dst_val[1].u16 = _mesa_float_to_float16_rtz(dst.y);
+            } else {
+               _dst_val[1].u16 = _mesa_float_to_float16_rtne(dst.y);
+            }
+
+               if (nir_is_denorm_flush_to_zero(execution_mode, 16)) {
+                  constant_denorm_flush_to_zero(&_dst_val[1], 16);
+               }
+            if (nir_is_rounding_mode_rtz(execution_mode, 16)) {
+               _dst_val[2].u16 = _mesa_float_to_float16_rtz(dst.z);
+            } else {
+               _dst_val[2].u16 = _mesa_float_to_float16_rtne(dst.z);
+            }
+
+               if (nir_is_denorm_flush_to_zero(execution_mode, 16)) {
+                  constant_denorm_flush_to_zero(&_dst_val[2], 16);
+               }
+            if (nir_is_rounding_mode_rtz(execution_mode, 16)) {
+               _dst_val[3].u16 = _mesa_float_to_float16_rtz(dst.w);
+            } else {
+               _dst_val[3].u16 = _mesa_float_to_float16_rtne(dst.w);
+            }
+
+               if (nir_is_denorm_flush_to_zero(execution_mode, 16)) {
+                  constant_denorm_flush_to_zero(&_dst_val[3], 16);
+               }
+
+         break;
+      }
+      case 32: {
+         
+   
+
+
+      const struct float32_vec src0 = {
+            _src[0][0].f32,
+            _src[0][1].f32,
+            _src[0][2].f32,
+            _src[0][3].f32,
+            _src[0][4].f32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float32_vec src1 = {
+            _src[1][0].f32,
+            _src[1][1].f32,
+            _src[1][2].f32,
+            _src[1][3].f32,
+            _src[1][4].f32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct float32_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e * src1.e) + (src0.w * src1.w) + (src0.z * src1.z) + (src0.y * src1.y) + (src0.x * src1.x));
+
+            _dst_val[0].f32 = dst.x;
+
+               if (nir_is_denorm_flush_to_zero(execution_mode, 32)) {
+                  constant_denorm_flush_to_zero(&_dst_val[0], 32);
+               }
+            _dst_val[1].f32 = dst.y;
+
+               if (nir_is_denorm_flush_to_zero(execution_mode, 32)) {
+                  constant_denorm_flush_to_zero(&_dst_val[1], 32);
+               }
+            _dst_val[2].f32 = dst.z;
+
+               if (nir_is_denorm_flush_to_zero(execution_mode, 32)) {
+                  constant_denorm_flush_to_zero(&_dst_val[2], 32);
+               }
+            _dst_val[3].f32 = dst.w;
+
+               if (nir_is_denorm_flush_to_zero(execution_mode, 32)) {
+                  constant_denorm_flush_to_zero(&_dst_val[3], 32);
+               }
+
+         break;
+      }
+      case 64: {
+         
+   
+
+
+      const struct float64_vec src0 = {
+            _src[0][0].f64,
+            _src[0][1].f64,
+            _src[0][2].f64,
+            _src[0][3].f64,
+            _src[0][4].f64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct float64_vec src1 = {
+            _src[1][0].f64,
+            _src[1][1].f64,
+            _src[1][2].f64,
+            _src[1][3].f64,
+            _src[1][4].f64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct float64_vec dst;
+
+         dst.x = dst.y = dst.z = dst.w = ((src0.e * src1.e) + (src0.w * src1.w) + (src0.z * src1.z) + (src0.y * src1.y) + (src0.x * src1.x));
 
             _dst_val[0].f64 = dst.x;
 
@@ -30026,7 +34183,7 @@ evaluate_fsign(nir_const_value *_dst_val,
                const float src0 =
                   _mesa_half_to_float(_src[0][_i].u16);
 
-            float16_t dst = bit_size == 64 ? ((src0 == 0.0) ? 0.0 : ((src0 > 0.0) ? 1.0 : -1.0)) : ((src0 == 0.0f) ? 0.0f : ((src0 > 0.0f) ? 1.0f : -1.0f));
+            float16_t dst = bit_size == 64 ? (isnan(src0) ? 0.0  : ((src0 == 0.0 ) ? src0 : (src0 > 0.0 ) ? 1.0  : -1.0 )) : (isnan(src0) ? 0.0f : ((src0 == 0.0f) ? src0 : (src0 > 0.0f) ? 1.0f : -1.0f));
 
             if (nir_is_rounding_mode_rtz(execution_mode, 16)) {
                _dst_val[_i].u16 = _mesa_float_to_float16_rtz(dst);
@@ -30050,7 +34207,7 @@ evaluate_fsign(nir_const_value *_dst_val,
                const float32_t src0 =
                   _src[0][_i].f32;
 
-            float32_t dst = bit_size == 64 ? ((src0 == 0.0) ? 0.0 : ((src0 > 0.0) ? 1.0 : -1.0)) : ((src0 == 0.0f) ? 0.0f : ((src0 > 0.0f) ? 1.0f : -1.0f));
+            float32_t dst = bit_size == 64 ? (isnan(src0) ? 0.0  : ((src0 == 0.0 ) ? src0 : (src0 > 0.0 ) ? 1.0  : -1.0 )) : (isnan(src0) ? 0.0f : ((src0 == 0.0f) ? src0 : (src0 > 0.0f) ? 1.0f : -1.0f));
 
             _dst_val[_i].f32 = dst;
 
@@ -30070,7 +34227,7 @@ evaluate_fsign(nir_const_value *_dst_val,
                const float64_t src0 =
                   _src[0][_i].f64;
 
-            float64_t dst = bit_size == 64 ? ((src0 == 0.0) ? 0.0 : ((src0 > 0.0) ? 1.0 : -1.0)) : ((src0 == 0.0f) ? 0.0f : ((src0 > 0.0f) ? 1.0f : -1.0f));
+            float64_t dst = bit_size == 64 ? (isnan(src0) ? 0.0  : ((src0 == 0.0 ) ? src0 : (src0 > 0.0 ) ? 1.0  : -1.0 )) : (isnan(src0) ? 0.0f : ((src0 == 0.0f) ? src0 : (src0 > 0.0f) ? 1.0f : -1.0f));
 
             _dst_val[_i].f64 = dst;
 
@@ -45489,6 +49646,639 @@ dst.w = src3.x;
       }
 }
 static void
+evaluate_vec5(nir_const_value *_dst_val,
+                 UNUSED unsigned num_components,
+                  unsigned bit_size,
+                 UNUSED nir_const_value **_src,
+                 UNUSED unsigned execution_mode)
+{
+      switch (bit_size) {
+      case 1: {
+         
+   
+
+
+      const struct uint1_vec src0 = {
+            _src[0][0].b,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct uint1_vec src1 = {
+            _src[1][0].b,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct uint1_vec src2 = {
+            _src[2][0].b,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct uint1_vec src3 = {
+            _src[3][0].b,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct uint1_vec src4 = {
+            _src[4][0].b,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct uint1_vec dst;
+
+         
+dst.x = src0.x;
+dst.y = src1.x;
+dst.z = src2.x;
+dst.w = src3.x;
+dst.e = src4.x;
+
+
+            /* 1-bit integers get truncated */
+            _dst_val[0].b = dst.x & 1;
+
+            /* 1-bit integers get truncated */
+            _dst_val[1].b = dst.y & 1;
+
+            /* 1-bit integers get truncated */
+            _dst_val[2].b = dst.z & 1;
+
+            /* 1-bit integers get truncated */
+            _dst_val[3].b = dst.w & 1;
+
+            /* 1-bit integers get truncated */
+            _dst_val[4].b = dst.e & 1;
+
+
+         break;
+      }
+      case 8: {
+         
+   
+
+
+      const struct uint8_vec src0 = {
+            _src[0][0].u8,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct uint8_vec src1 = {
+            _src[1][0].u8,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct uint8_vec src2 = {
+            _src[2][0].u8,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct uint8_vec src3 = {
+            _src[3][0].u8,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct uint8_vec src4 = {
+            _src[4][0].u8,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct uint8_vec dst;
+
+         
+dst.x = src0.x;
+dst.y = src1.x;
+dst.z = src2.x;
+dst.w = src3.x;
+dst.e = src4.x;
+
+
+            _dst_val[0].u8 = dst.x;
+
+            _dst_val[1].u8 = dst.y;
+
+            _dst_val[2].u8 = dst.z;
+
+            _dst_val[3].u8 = dst.w;
+
+            _dst_val[4].u8 = dst.e;
+
+
+         break;
+      }
+      case 16: {
+         
+   
+
+
+      const struct uint16_vec src0 = {
+            _src[0][0].u16,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct uint16_vec src1 = {
+            _src[1][0].u16,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct uint16_vec src2 = {
+            _src[2][0].u16,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct uint16_vec src3 = {
+            _src[3][0].u16,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct uint16_vec src4 = {
+            _src[4][0].u16,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct uint16_vec dst;
+
+         
+dst.x = src0.x;
+dst.y = src1.x;
+dst.z = src2.x;
+dst.w = src3.x;
+dst.e = src4.x;
+
+
+            _dst_val[0].u16 = dst.x;
+
+            _dst_val[1].u16 = dst.y;
+
+            _dst_val[2].u16 = dst.z;
+
+            _dst_val[3].u16 = dst.w;
+
+            _dst_val[4].u16 = dst.e;
+
+
+         break;
+      }
+      case 32: {
+         
+   
+
+
+      const struct uint32_vec src0 = {
+            _src[0][0].u32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct uint32_vec src1 = {
+            _src[1][0].u32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct uint32_vec src2 = {
+            _src[2][0].u32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct uint32_vec src3 = {
+            _src[3][0].u32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct uint32_vec src4 = {
+            _src[4][0].u32,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct uint32_vec dst;
+
+         
+dst.x = src0.x;
+dst.y = src1.x;
+dst.z = src2.x;
+dst.w = src3.x;
+dst.e = src4.x;
+
+
+            _dst_val[0].u32 = dst.x;
+
+            _dst_val[1].u32 = dst.y;
+
+            _dst_val[2].u32 = dst.z;
+
+            _dst_val[3].u32 = dst.w;
+
+            _dst_val[4].u32 = dst.e;
+
+
+         break;
+      }
+      case 64: {
+         
+   
+
+
+      const struct uint64_vec src0 = {
+            _src[0][0].u64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct uint64_vec src1 = {
+            _src[1][0].u64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct uint64_vec src2 = {
+            _src[2][0].u64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct uint64_vec src3 = {
+            _src[3][0].u64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      const struct uint64_vec src4 = {
+            _src[4][0].u64,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+         0,
+      };
+
+      struct uint64_vec dst;
+
+         
+dst.x = src0.x;
+dst.y = src1.x;
+dst.z = src2.x;
+dst.w = src3.x;
+dst.e = src4.x;
+
+
+            _dst_val[0].u64 = dst.x;
+
+            _dst_val[1].u64 = dst.y;
+
+            _dst_val[2].u64 = dst.z;
+
+            _dst_val[3].u64 = dst.w;
+
+            _dst_val[4].u64 = dst.e;
+
+
+         break;
+      }
+
+      default:
+         unreachable("unknown bit width");
+      }
+}
+static void
 evaluate_vec8(nir_const_value *_dst_val,
                  UNUSED unsigned num_components,
                   unsigned bit_size,
@@ -46477,6 +51267,9 @@ nir_eval_const_opcode(nir_op op, nir_const_value *dest,
    case nir_op_b16all_fequal4:
       evaluate_b16all_fequal4(dest, num_components, bit_width, src, float_controls_execution_mode);
       return;
+   case nir_op_b16all_fequal5:
+      evaluate_b16all_fequal5(dest, num_components, bit_width, src, float_controls_execution_mode);
+      return;
    case nir_op_b16all_fequal8:
       evaluate_b16all_fequal8(dest, num_components, bit_width, src, float_controls_execution_mode);
       return;
@@ -46491,6 +51284,9 @@ nir_eval_const_opcode(nir_op op, nir_const_value *dest,
       return;
    case nir_op_b16all_iequal4:
       evaluate_b16all_iequal4(dest, num_components, bit_width, src, float_controls_execution_mode);
+      return;
+   case nir_op_b16all_iequal5:
+      evaluate_b16all_iequal5(dest, num_components, bit_width, src, float_controls_execution_mode);
       return;
    case nir_op_b16all_iequal8:
       evaluate_b16all_iequal8(dest, num_components, bit_width, src, float_controls_execution_mode);
@@ -46507,6 +51303,9 @@ nir_eval_const_opcode(nir_op op, nir_const_value *dest,
    case nir_op_b16any_fnequal4:
       evaluate_b16any_fnequal4(dest, num_components, bit_width, src, float_controls_execution_mode);
       return;
+   case nir_op_b16any_fnequal5:
+      evaluate_b16any_fnequal5(dest, num_components, bit_width, src, float_controls_execution_mode);
+      return;
    case nir_op_b16any_fnequal8:
       evaluate_b16any_fnequal8(dest, num_components, bit_width, src, float_controls_execution_mode);
       return;
@@ -46521,6 +51320,9 @@ nir_eval_const_opcode(nir_op op, nir_const_value *dest,
       return;
    case nir_op_b16any_inequal4:
       evaluate_b16any_inequal4(dest, num_components, bit_width, src, float_controls_execution_mode);
+      return;
+   case nir_op_b16any_inequal5:
+      evaluate_b16any_inequal5(dest, num_components, bit_width, src, float_controls_execution_mode);
       return;
    case nir_op_b16any_inequal8:
       evaluate_b16any_inequal8(dest, num_components, bit_width, src, float_controls_execution_mode);
@@ -46576,6 +51378,9 @@ nir_eval_const_opcode(nir_op op, nir_const_value *dest,
    case nir_op_b32all_fequal4:
       evaluate_b32all_fequal4(dest, num_components, bit_width, src, float_controls_execution_mode);
       return;
+   case nir_op_b32all_fequal5:
+      evaluate_b32all_fequal5(dest, num_components, bit_width, src, float_controls_execution_mode);
+      return;
    case nir_op_b32all_fequal8:
       evaluate_b32all_fequal8(dest, num_components, bit_width, src, float_controls_execution_mode);
       return;
@@ -46590,6 +51395,9 @@ nir_eval_const_opcode(nir_op op, nir_const_value *dest,
       return;
    case nir_op_b32all_iequal4:
       evaluate_b32all_iequal4(dest, num_components, bit_width, src, float_controls_execution_mode);
+      return;
+   case nir_op_b32all_iequal5:
+      evaluate_b32all_iequal5(dest, num_components, bit_width, src, float_controls_execution_mode);
       return;
    case nir_op_b32all_iequal8:
       evaluate_b32all_iequal8(dest, num_components, bit_width, src, float_controls_execution_mode);
@@ -46606,6 +51414,9 @@ nir_eval_const_opcode(nir_op op, nir_const_value *dest,
    case nir_op_b32any_fnequal4:
       evaluate_b32any_fnequal4(dest, num_components, bit_width, src, float_controls_execution_mode);
       return;
+   case nir_op_b32any_fnequal5:
+      evaluate_b32any_fnequal5(dest, num_components, bit_width, src, float_controls_execution_mode);
+      return;
    case nir_op_b32any_fnequal8:
       evaluate_b32any_fnequal8(dest, num_components, bit_width, src, float_controls_execution_mode);
       return;
@@ -46620,6 +51431,9 @@ nir_eval_const_opcode(nir_op op, nir_const_value *dest,
       return;
    case nir_op_b32any_inequal4:
       evaluate_b32any_inequal4(dest, num_components, bit_width, src, float_controls_execution_mode);
+      return;
+   case nir_op_b32any_inequal5:
+      evaluate_b32any_inequal5(dest, num_components, bit_width, src, float_controls_execution_mode);
       return;
    case nir_op_b32any_inequal8:
       evaluate_b32any_inequal8(dest, num_components, bit_width, src, float_controls_execution_mode);
@@ -46639,6 +51453,9 @@ nir_eval_const_opcode(nir_op op, nir_const_value *dest,
    case nir_op_b8all_fequal4:
       evaluate_b8all_fequal4(dest, num_components, bit_width, src, float_controls_execution_mode);
       return;
+   case nir_op_b8all_fequal5:
+      evaluate_b8all_fequal5(dest, num_components, bit_width, src, float_controls_execution_mode);
+      return;
    case nir_op_b8all_fequal8:
       evaluate_b8all_fequal8(dest, num_components, bit_width, src, float_controls_execution_mode);
       return;
@@ -46653,6 +51470,9 @@ nir_eval_const_opcode(nir_op op, nir_const_value *dest,
       return;
    case nir_op_b8all_iequal4:
       evaluate_b8all_iequal4(dest, num_components, bit_width, src, float_controls_execution_mode);
+      return;
+   case nir_op_b8all_iequal5:
+      evaluate_b8all_iequal5(dest, num_components, bit_width, src, float_controls_execution_mode);
       return;
    case nir_op_b8all_iequal8:
       evaluate_b8all_iequal8(dest, num_components, bit_width, src, float_controls_execution_mode);
@@ -46669,6 +51489,9 @@ nir_eval_const_opcode(nir_op op, nir_const_value *dest,
    case nir_op_b8any_fnequal4:
       evaluate_b8any_fnequal4(dest, num_components, bit_width, src, float_controls_execution_mode);
       return;
+   case nir_op_b8any_fnequal5:
+      evaluate_b8any_fnequal5(dest, num_components, bit_width, src, float_controls_execution_mode);
+      return;
    case nir_op_b8any_fnequal8:
       evaluate_b8any_fnequal8(dest, num_components, bit_width, src, float_controls_execution_mode);
       return;
@@ -46683,6 +51506,9 @@ nir_eval_const_opcode(nir_op op, nir_const_value *dest,
       return;
    case nir_op_b8any_inequal4:
       evaluate_b8any_inequal4(dest, num_components, bit_width, src, float_controls_execution_mode);
+      return;
+   case nir_op_b8any_inequal5:
+      evaluate_b8any_inequal5(dest, num_components, bit_width, src, float_controls_execution_mode);
       return;
    case nir_op_b8any_inequal8:
       evaluate_b8any_inequal8(dest, num_components, bit_width, src, float_controls_execution_mode);
@@ -46702,6 +51528,9 @@ nir_eval_const_opcode(nir_op op, nir_const_value *dest,
    case nir_op_ball_fequal4:
       evaluate_ball_fequal4(dest, num_components, bit_width, src, float_controls_execution_mode);
       return;
+   case nir_op_ball_fequal5:
+      evaluate_ball_fequal5(dest, num_components, bit_width, src, float_controls_execution_mode);
+      return;
    case nir_op_ball_fequal8:
       evaluate_ball_fequal8(dest, num_components, bit_width, src, float_controls_execution_mode);
       return;
@@ -46716,6 +51545,9 @@ nir_eval_const_opcode(nir_op op, nir_const_value *dest,
       return;
    case nir_op_ball_iequal4:
       evaluate_ball_iequal4(dest, num_components, bit_width, src, float_controls_execution_mode);
+      return;
+   case nir_op_ball_iequal5:
+      evaluate_ball_iequal5(dest, num_components, bit_width, src, float_controls_execution_mode);
       return;
    case nir_op_ball_iequal8:
       evaluate_ball_iequal8(dest, num_components, bit_width, src, float_controls_execution_mode);
@@ -46732,6 +51564,9 @@ nir_eval_const_opcode(nir_op op, nir_const_value *dest,
    case nir_op_bany_fnequal4:
       evaluate_bany_fnequal4(dest, num_components, bit_width, src, float_controls_execution_mode);
       return;
+   case nir_op_bany_fnequal5:
+      evaluate_bany_fnequal5(dest, num_components, bit_width, src, float_controls_execution_mode);
+      return;
    case nir_op_bany_fnequal8:
       evaluate_bany_fnequal8(dest, num_components, bit_width, src, float_controls_execution_mode);
       return;
@@ -46746,6 +51581,9 @@ nir_eval_const_opcode(nir_op op, nir_const_value *dest,
       return;
    case nir_op_bany_inequal4:
       evaluate_bany_inequal4(dest, num_components, bit_width, src, float_controls_execution_mode);
+      return;
+   case nir_op_bany_inequal5:
+      evaluate_bany_inequal5(dest, num_components, bit_width, src, float_controls_execution_mode);
       return;
    case nir_op_bany_inequal8:
       evaluate_bany_inequal8(dest, num_components, bit_width, src, float_controls_execution_mode);
@@ -46873,6 +51711,9 @@ nir_eval_const_opcode(nir_op op, nir_const_value *dest,
    case nir_op_fall_equal4:
       evaluate_fall_equal4(dest, num_components, bit_width, src, float_controls_execution_mode);
       return;
+   case nir_op_fall_equal5:
+      evaluate_fall_equal5(dest, num_components, bit_width, src, float_controls_execution_mode);
+      return;
    case nir_op_fall_equal8:
       evaluate_fall_equal8(dest, num_components, bit_width, src, float_controls_execution_mode);
       return;
@@ -46887,6 +51728,9 @@ nir_eval_const_opcode(nir_op op, nir_const_value *dest,
       return;
    case nir_op_fany_nequal4:
       evaluate_fany_nequal4(dest, num_components, bit_width, src, float_controls_execution_mode);
+      return;
+   case nir_op_fany_nequal5:
+      evaluate_fany_nequal5(dest, num_components, bit_width, src, float_controls_execution_mode);
       return;
    case nir_op_fany_nequal8:
       evaluate_fany_nequal8(dest, num_components, bit_width, src, float_controls_execution_mode);
@@ -46947,6 +51791,12 @@ nir_eval_const_opcode(nir_op op, nir_const_value *dest,
       return;
    case nir_op_fdot4_replicated:
       evaluate_fdot4_replicated(dest, num_components, bit_width, src, float_controls_execution_mode);
+      return;
+   case nir_op_fdot5:
+      evaluate_fdot5(dest, num_components, bit_width, src, float_controls_execution_mode);
+      return;
+   case nir_op_fdot5_replicated:
+      evaluate_fdot5_replicated(dest, num_components, bit_width, src, float_controls_execution_mode);
       return;
    case nir_op_fdot8:
       evaluate_fdot8(dest, num_components, bit_width, src, float_controls_execution_mode);
@@ -47550,6 +52400,9 @@ nir_eval_const_opcode(nir_op op, nir_const_value *dest,
       return;
    case nir_op_vec4:
       evaluate_vec4(dest, num_components, bit_width, src, float_controls_execution_mode);
+      return;
+   case nir_op_vec5:
+      evaluate_vec5(dest, num_components, bit_width, src, float_controls_execution_mode);
       return;
    case nir_op_vec8:
       evaluate_vec8(dest, num_components, bit_width, src, float_controls_execution_mode);
