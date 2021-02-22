@@ -71,6 +71,8 @@ python  src/vulkan/util/vk_entrypoints_gen.py --xml src/vulkan/registry/vk.xml \
 python  src/vulkan/util/gen_enum_to_str.py  --xml src/vulkan/registry/vk.xml   --outdir prebuilt-intermediates/util/
 
 
+python3 src/gallium/auxiliary/util/u_tracepoints.py -p src/gallium/auxiliary/util -C prebuilt-intermediates/util/u_tracepoints.c -H prebuilt-intermediates/util/u_tracepoints.h
+python3 src/gallium/drivers/freedreno/freedreno_tracepoints.py -p src/gallium/auxiliary/util -C prebuilt-intermediates/freedreno_tracepoints.c -H prebuilt-intermediates/freedreno_tracepoints.h
 python src/gallium/drivers/lima/ir/lima_nir_algebraic.py -p src/compiler/nir/ > prebuilt-intermediates/lima/lima_nir_algebraic.c
 python src/panfrost/midgard/midgard_nir_algebraic.py -p src/compiler/nir/ > prebuilt-intermediates/midgard/midgard_nir_algebraic.c
 python3 src/panfrost/bifrost/gen_disasm.py src/panfrost/bifrost/ISA.xml > prebuilt-intermediates/bifrost/bifrost_gen_disasm.c
