@@ -75,6 +75,11 @@ python src/gallium/drivers/lima/ir/lima_nir_algebraic.py -p src/compiler/nir/ > 
 python src/panfrost/midgard/midgard_nir_algebraic.py -p src/compiler/nir/ > prebuilt-intermediates/midgard/midgard_nir_algebraic.c
 python3 src/panfrost/bifrost/gen_disasm.py src/panfrost/bifrost/ISA.xml > prebuilt-intermediates/bifrost/bifrost_gen_disasm.c
 python3 src/panfrost/bifrost/bifrost_nir_algebraic.py -p src/compiler/nir/ > prebuilt-intermediates/bifrost/bifrost_nir_algebraic.c
+python3 src/panfrost/bifrost/bi_builder.h.py src/panfrost/bifrost/ISA.xml > prebuilt-intermediates/bifrost/bi_builder.h
+python3 src/panfrost/bifrost/bi_opcodes.c.py src/panfrost/bifrost/ISA.xml > prebuilt-intermediates/bifrost/bi_opcodes.c
+python3 src/panfrost/bifrost/bi_opcodes.h.py src/panfrost/bifrost/ISA.xml > prebuilt-intermediates/bifrost/bi_opcodes.h
+python3 src/panfrost/bifrost/bi_packer.c.py src/panfrost/bifrost/ISA.xml > prebuilt-intermediates/bifrost/bi_packer.c
+python3 src/panfrost/bifrost/bi_printer.c.py src/panfrost/bifrost/ISA.xml > prebuilt-intermediates/bifrost/bi_printer.c
 
 
 python src/intel/compiler/brw_nir_trig_workarounds.py -p src/compiler/nir > prebuilt-intermediates/compiler/brw_nir_trig_workarounds.c
