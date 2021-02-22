@@ -1,4 +1,4 @@
-mkdir -p prebuilt-intermediates/{glsl,ir3,main,nir,spirv,cle,isl,perf,genxml,compiler,lima,midgard,iris,util,virgl,vulkan,bifrost}
+mkdir -p prebuilt-intermediates/{glsl,ir3,main,nir,spirv,cle,isl,perf,genxml,compiler,lima,midgard,iris,util,virgl,vulkan,bifrost,isa}
 
 python src/compiler/glsl/ir_expression_operation.py strings > prebuilt-intermediates/glsl/ir_expression_operation_strings.h 
 python src/compiler/glsl/ir_expression_operation.py constant > prebuilt-intermediates/glsl/ir_expression_operation_constant.h
@@ -6,6 +6,8 @@ python src/compiler/glsl/ir_expression_operation.py enum > prebuilt-intermediate
 
 python3 src/freedreno/ir3/ir3_nir_trig.py -p src/compiler/nir > prebuilt-intermediates/ir3/ir3_nir_trig.c
 python3 src/freedreno/ir3/ir3_nir_imul.py -p src/compiler/nir > prebuilt-intermediates/ir3/ir3_nir_imul.c
+python3 src/freedreno/isa/decode.py src/freedreno/isa/ir3.xml prebuilt-intermediates/isa/ir3-isa.c
+python3 src/freedreno/isa/encode.py src/freedreno/isa/ir3.xml prebuilt-intermediates/isa/encode.h
 
 python src/mesa/main/format_pack.py  src/mesa/main/formats.csv  > prebuilt-intermediates/main/format_pack.c
 python src/mesa/main/format_fallback.py  src/mesa/main/formats.csv /dev/stdout  > prebuilt-intermediates/main/format_fallback.c
