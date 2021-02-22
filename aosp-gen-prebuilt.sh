@@ -8,7 +8,6 @@ python src/freedreno/ir3/ir3_nir_trig.py -p src/compiler/nir > prebuilt-intermed
 python src/freedreno/ir3/ir3_nir_imul.py -p src/compiler/nir > prebuilt-intermediates/ir3/ir3_nir_imul.c
 
 python src/mesa/main/format_pack.py  src/mesa/main/formats.csv  > prebuilt-intermediates/main/format_pack.c
-python src/mesa/main/format_unpack.py  src/mesa/main/formats.csv  > prebuilt-intermediates/main/format_unpack.c
 python src/mesa/main/format_fallback.py  src/mesa/main/formats.csv /dev/stdout  > prebuilt-intermediates/main/format_fallback.c
 
 python src/compiler/nir/nir_builder_opcodes_h.py src/compiler/nir/nir_opcodes.py > prebuilt-intermediates/nir/nir_builder_opcodes.h

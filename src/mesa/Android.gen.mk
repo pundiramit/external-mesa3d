@@ -180,6 +180,3 @@ $(intermediates)/main/format_info.h: $(format_info_deps)
 
 $(intermediates)/main/format_pack.c: $(prebuilt_intermediates)/main/format_pack.c
 	cp -a $< $@
-
-$(intermediates)/main/format_unpack.c: $(prebuilt_intermediates)/main/format_unpack.c
-	cp -a $< $@
