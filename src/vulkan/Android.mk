@@ -34,6 +34,7 @@ LOCAL_MODULE := libmesa_vulkan_util
 LOCAL_MODULE_CLASS := STATIC_LIBRARIES
 
 intermediates := $(call local-generated-sources-dir)
+prebuilt_intermediates := $(MESA_TOP)/prebuilt-intermediates
 
 LOCAL_C_INCLUDES := \
 	$(MESA_TOP)/include/vulkan \
@@ -56,58 +57,41 @@ LOCAL_SRC_FILES := $(VULKAN_UTIL_FILES) $(VULKAN_WSI_FILES)
 
 vulkan_api_xml = $(MESA_TOP)/src/vulkan/registry/vk.xml
 
-$(intermediates)/util/vk_enum_to_str.c: $(MESA_TOP)/src/vulkan/util/gen_enum_to_str.py \
-		$(vulkan_api_xml)
-	@echo "target Generated: $(PRIVATE_MODULE) <= $(notdir $(@))"
+$(intermediates)/util/vk_enum_to_str.c:$(prebuilt_intermediates)/util/vk_enum_to_str.c
 	@mkdir -p $(dir $@)
-	$(hide) $(MESA_PYTHON2) $< \
-	    --xml $(vulkan_api_xml) \
-	    --outdir $(dir $@)
+	@cp -f $< $@
+
+$(intermediates)/util/vk_enum_to_str.h:$(prebuilt_intermediates)/util/vk_enum_to_str.h
+	@mkdir -p $(dir $@)
+	@cp -f $< $@
 
 $(intermediates)/util/vk_enum_to_str.h: $(intermediates)/util/vk_enum_to_str.c
 
-$(intermediates)/util/vk_common_entrypoints.c: $(MESA_TOP)/src/vulkan/util/vk_entrypoints_gen.py \
-		$(vulkan_api_xml)
-	@echo "target Generated: $(PRIVATE_MODULE) <= $(notdir $(@))"
+$(intermediates)/util/vk_common_entrypoints.c: $(prebuilt_intermediates)/util/vk_common_entrypoints.c
 	@mkdir -p $(dir $@)
-	$(hide) $(MESA_PYTHON2) $< \
-	    --xml $(vulkan_api_xml) \
-	    --proto --weak --prefix vk_common \
-	    --out-c $@ --out-h $(dir $@)/vk_common_entrypoints.h
+	@cp -f $< $@
+
+$(intermediates)/util/vk_common_entrypoints.h: $(prebuilt_intermediates)/util/vk_common_entrypoints.h
+	@mkdir -p $(dir $@)
+	@cp -f $< $@
 
 $(intermediates)/util/vk_common_entrypoints.h: $(intermediates)/util/vk_common_entrypoints.c
 
-$(intermediates)/util/vk_dispatch_table.c: $(MESA_TOP)/src/vulkan/util/vk_dispatch_table_gen.py \
-		$(vulkan_api_xml)
-	@echo "target Generated: $(PRIVATE_MODULE) <= $(notdir $(@))"
+$(intermediates)/util/vk_dispatch_table.c: $(prebuilt_intermediates)/util/vk_dispatch_table.c
 	@mkdir -p $(dir $@)
-	$(hide) $(MESA_PYTHON2) $< \
-	    --xml $(vulkan_api_xml) \
-	    --out-c $@
+	@cp -f $< $@
 
-$(intermediates)/util/vk_dispatch_table.h: $(MESA_TOP)/src/vulkan/util/vk_dispatch_table_gen.py \
-		$(vulkan_api_xml)
-	@echo "target Generated: $(PRIVATE_MODULE) <= $(notdir $(@))"
+$(intermediates)/util/vk_dispatch_table.h: $(prebuilt_intermediates)/util/vk_dispatch_table.h
 	@mkdir -p $(dir $@)
-	$(hide) $(MESA_PYTHON2) $< \
-	    --xml $(vulkan_api_xml) \
-	    --out-h $@
+	@cp -f $< $@
 
-$(intermediates)/util/vk_extensions.c: $(MESA_TOP)/src/vulkan/util/vk_extensions_gen.py \
-		$(vulkan_api_xml)
-	@echo "target Generated: $(PRIVATE_MODULE) <= $(notdir $(@))"
+$(intermediates)/util/vk_extensions.c: $(prebuilt_intermediates)/util/vk_extensions.c
 	@mkdir -p $(dir $@)
-	$(hide) $(MESA_PYTHON2) $< \
-	    --xml $(vulkan_api_xml) \
-	    --out-c $@
+	@cp -f $< $@
 
-$(intermediates)/util/vk_extensions.h: $(MESA_TOP)/src/vulkan/util/vk_extensions_gen.py \
-		$(vulkan_api_xml)
-	@echo "target Generated: $(PRIVATE_MODULE) <= $(notdir $(@))"
+$(intermediates)/util/vk_extensions.h: $(prebuilt_intermediates)/util/vk_extensions.h
 	@mkdir -p $(dir $@)
-	$(hide) $(MESA_PYTHON2) $< \
-	    --xml $(vulkan_api_xml) \
-	    --out-h $@
+	@cp -f $< $@
 
 LOCAL_EXPORT_C_INCLUDE_DIRS := $(intermediates)/util
 

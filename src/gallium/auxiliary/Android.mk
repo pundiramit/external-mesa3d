@@ -64,6 +64,7 @@ LOCAL_CFLAGS += -DHAS_ANDROID_CPUFEATURES
 # generate sources
 LOCAL_MODULE_CLASS := STATIC_LIBRARIES
 intermediates := $(call local-generated-sources-dir)
+prebuilt_intermediates := $(MESA_TOP)/prebuilt-intermediates
 LOCAL_GENERATED_SOURCES := $(addprefix $(intermediates)/, $(GENERATED_SOURCES))
 
 u_indices_gen_deps := \
@@ -87,10 +88,13 @@ u_tracepoints_deps := \
 u_tracepoints_c := $(intermediates)/util/u_tracepoints.c
 u_tracepoints_h := $(intermediates)/util/u_tracepoints.h
 
-$(intermediates)/util/u_tracepoints.c \
-$(intermediates)/util/u_tracepoints.h: $(u_tracepoints_deps)
+$(intermediates)/util/u_tracepoints.c: $(prebuilt_intermediates)/util/u_tracepoints.c
 	@mkdir -p $(dir $@)
-	$(hide) $(MESA_PYTHON3) $< -p $(MESA_TOP)/src/gallium/auxiliary/util -C $(u_tracepoints_c) -H $(u_tracepoints_h)
+	@cp -f $< $@
+
+$(intermediates)/util/u_tracepoints.h: $(prebuilt_intermediates)/util/u_tracepoints.h
+	@mkdir -p $(dir $@)
+	@cp -f $< $@
 
 LOCAL_GENERATED_SOURCES += $(MESA_GEN_NIR_H)
 

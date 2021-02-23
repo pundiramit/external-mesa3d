@@ -36,6 +36,7 @@ LOCAL_MODULE := libir3decode
 LOCAL_MODULE_CLASS := STATIC_LIBRARIES
 
 intermediates := $(call local-generated-sources-dir)
+prebuilt_intermediates := $(MESA_TOP)/prebuilt-intermediates
 
 LOCAL_C_INCLUDES := \
 	$(MESA_TOP)/src/gallium/include \
@@ -61,9 +62,9 @@ ir3-isa_c_deps := \
 	$(MESA_TOP)/src/freedreno/isa/ir3-cat7.xml \
 	$(MESA_TOP)/src/freedreno/isa/isa.py
 
-$(intermediates)/isa/ir3-isa.c: $(ir3-isa_c_deps)
+$(intermediates)/isa/ir3-isa.c: $(prebuilt_intermediates)/isa/ir3-isa.c
 	@mkdir -p $(dir $@)
-	$(hide) $(MESA_PYTHON3) $(ir3-isa_c_gen) $< $@
+	cp -a $< $@
 
 include $(MESA_COMMON_MK)
 include $(BUILD_STATIC_LIBRARY)
@@ -115,9 +116,9 @@ encode_h_deps := \
 	$(MESA_TOP)/src/freedreno/isa/ir3-cat7.xml \
 	$(MESA_TOP)/src/freedreno/isa/isa.py
 
-$(intermediates)/isa/encode.h: $(encode_h_deps)
+$(intermediates)/isa/encode.h: $(prebuilt_intermediates)/isa/encode.h
 	@mkdir -p $(dir $@)
-	$(hide) $(MESA_PYTHON3) $(encode_h_gen) $< $@
+	cp -a $< $@
 
 include $(MESA_COMMON_MK)
 include $(BUILD_STATIC_LIBRARY)

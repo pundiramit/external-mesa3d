@@ -38,6 +38,7 @@ LOCAL_MODULE := libmesa_util
 
 LOCAL_MODULE_CLASS := STATIC_LIBRARIES
 
+prebuilt_intermediates := $(MESA_TOP)/prebuilt-intermediates
 intermediates := $(call local-generated-sources-dir)
 
 LOCAL_C_INCLUDES := \

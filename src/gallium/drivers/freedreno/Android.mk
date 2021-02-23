@@ -52,6 +52,7 @@ LOCAL_MODULE := libmesa_pipe_freedreno
 LOCAL_MODULE_CLASS := STATIC_LIBRARIES
 
 intermediates := $(call local-generated-sources-dir)
+prebuilt_intermediates := $(MESA_TOP)/prebuilt-intermediates
 
 LOCAL_GENERATED_SOURCES += $(addprefix $(intermediates)/, $(GENERATED_SOURCES))
 
@@ -62,10 +63,13 @@ freedreno_tracepoints_deps := \
 freedreno_tracepoints_c := $(intermediates)/freedreno_tracepoints.c
 freedreno_tracepoints_h := $(intermediates)/freedreno_tracepoints.h
 
-$(intermediates)/freedreno_tracepoints.c \
-$(intermediates)/freedreno_tracepoints.h: $(freedreno_tracepoints_deps)
+$(intermediates)/freedreno_tracepoints.c: $(prebuilt_intermediates)/freedreno_tracepoints.c
 	@mkdir -p $(dir $@)
-	$(hide) $(MESA_PYTHON3) $< -p $(MESA_TOP)/src/gallium/auxiliary/util -C $(freedreno_tracepoints_c) -H $(freedreno_tracepoints_h)
+	@cp -f $< $@
+
+$(intermediates)/freedreno_tracepoints.h: $(prebuilt_intermediates)/freedreno_tracepoints.h
+	@mkdir -p $(dir $@)
+	@cp -f $< $@
 
 include $(GALLIUM_COMMON_MK)
 include $(BUILD_STATIC_LIBRARY)
